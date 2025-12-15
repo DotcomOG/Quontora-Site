@@ -1,62 +1,58 @@
 <!DOCTYPE html>
 <!--
   Quontora.com (Umbrella Website)
-  Version: v2025.12.15-1 (AIVI Copy + Offerings Refresh)
+  Version: v2025.12.15-2 (Content-first, toned-down Paul Rand accents)
   Built by ChatGPT - 2025-12-15
 
   NOTES:
-  - Kept the fun, Paul Rand–inspired geometric vibe.
-  - Updated copy to reflect AIVI (AI Visibility Index) as Quontora’s flagship product.
-  - Preserved “different colors on click” interaction and extended it to more elements.
+  - Same overall structure and “fun on click” behavior, but much more conservative.
+  - Content comes first: clearer hierarchy, fewer shapes, calmer palette, tighter sections.
+  - Fun elements are now accents (small pops + click-to-cycle) instead of dominating layout.
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quontora — AIVI (AI Visibility Index)</title>
-  <meta name="description" content="Quontora builds AIVI (AI Visibility Index): a clear, actionable way to understand how AI systems interpret your website and brand." />
+  <meta name="description" content="Quontora builds AIVI (AI Visibility Index): a clear way to understand how AI systems interpret your website and brand." />
   <style>
     :root{
-      --max-width: 1200px;
-      --content-width: 820px;
+      --max-width: 1120px;
+      --content-width: 840px;
       --pad-v: 3vh;
       --pad-h: 2rem;
 
-      /* Paul Rand-ish palette */
-      --rand-red: #E53E3E;
-      --rand-yellow: #F6E05E;
-      --rand-blue: #3182CE;
-      --rand-black: #111111;
-      --rand-ink: #1a1a1a;
-      --rand-gray: #6b7280;
-      --rand-paper: #fbfbf7;
-      --rand-border: rgba(17,17,17,0.14);
+      /* Calm base */
+      --ink: #121212;
+      --muted: #5b6472;
+      --paper: #fbfbf7;
+      --card: #ffffff;
+      --border: rgba(18,18,18,0.14);
 
-      /* Interaction colors (cycled on click) */
-      --c1: #E53E3E; /* red */
-      --c2: #3182CE; /* blue */
-      --c3: #16A34A; /* green */
-      --c4: #F59E0B; /* amber */
-      --c5: #7C3AED; /* purple */
-      --c6: #111111; /* black */
+      /* Accent palette (used sparingly + click cycle) */
+      --a1: #2563EB; /* blue */
+      --a2: #DC2626; /* red */
+      --a3: #16A34A; /* green */
+      --a4: #F59E0B; /* amber */
+      --a5: #7C3AED; /* purple */
+      --a6: #111111; /* black */
     }
 
     *{ box-sizing:border-box; }
-    html, body{ height:100%; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color: var(--rand-ink);
-      background: var(--rand-paper);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color: var(--ink);
+      background: var(--paper);
       overflow-x:hidden;
     }
-
     a{ color:inherit; text-decoration:none; }
+    strong{ font-weight:900; letter-spacing:-0.01em; }
+
     .wrap{
       max-width: var(--max-width);
       margin: 0 auto;
       padding: calc(var(--pad-v) + 1rem) var(--pad-h) calc(var(--pad-v) + 2.5rem);
-      position: relative;
     }
 
     /* Header */
@@ -65,217 +61,193 @@
       align-items:center;
       justify-content:space-between;
       gap:1rem;
-      padding: 1rem 0 1.25rem;
+      padding: .35rem 0 1.1rem;
     }
     .brand{
       display:flex;
       align-items:center;
-      gap:.75rem;
+      gap:.85rem;
       user-select:none;
     }
     .mark{
       width:40px; height:40px;
-      border: 2px solid var(--rand-black);
+      border: 1.5px solid rgba(18,18,18,0.65);
+      border-radius: 10px;
       display:grid;
       place-items:center;
       background:#fff;
-      transform: rotate(-3deg);
-      box-shadow: 6px 6px 0 rgba(17,17,17,0.08);
       cursor:pointer;
     }
     .mark span{
-      font-weight:900;
+      font-weight:950;
       letter-spacing:-0.04em;
     }
     .brandname{
       display:flex;
       flex-direction:column;
-      line-height:1.05;
+      line-height:1.1;
     }
-    .brandname strong{
-      font-size:1.05rem;
-      letter-spacing:-0.02em;
-    }
-    .brandname small{
-      color: var(--rand-gray);
-      font-weight:600;
-      font-size:.82rem;
-    }
+    .brandname .name{ font-size:1.02rem; font-weight:950; letter-spacing:-0.02em; }
+    .brandname .tag{ font-size:.86rem; font-weight:750; color: var(--muted); }
 
     .nav{
       display:flex;
-      gap:.75rem;
+      gap:.6rem;
       flex-wrap:wrap;
       justify-content:flex-end;
     }
     .nav a{
-      border:1px solid var(--rand-border);
-      padding:.55rem .8rem;
+      border:1px solid var(--border);
+      padding:.5rem .7rem;
       border-radius: 999px;
-      font-weight:700;
+      font-weight:800;
       font-size:.9rem;
-      background: rgba(255,255,255,0.7);
-      transition: transform .12s ease, box-shadow .12s ease;
+      background: rgba(255,255,255,0.75);
       cursor:pointer;
     }
-    .nav a:hover{
-      transform: translateY(-1px);
-      box-shadow: 8px 8px 0 rgba(17,17,17,0.06);
-    }
+    .nav a:hover{ border-color: rgba(18,18,18,0.3); }
 
-    /* Hero */
+    /* Layout */
     .hero{
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 1.75rem;
-      align-items: start;
-      margin-top: .75rem;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 1.25rem;
+      align-items:start;
+      margin-top: .25rem;
     }
 
-    .headline{
-      border: 2px solid var(--rand-black);
-      background:#fff;
-      padding: 1.35rem 1.25rem 1.1rem;
-      box-shadow: 10px 10px 0 rgba(17,17,17,0.08);
-      position:relative;
-      overflow:hidden;
+    .panel{
+      border:1px solid var(--border);
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1.2rem 1.15rem;
     }
 
-    .headline h1{
-      margin:0 0 .65rem;
-      font-size: clamp(2rem, 3.4vw, 3.15rem);
-      line-height: 1.03;
+    .hero h1{
+      margin:0 0 .55rem;
+      font-size: clamp(1.9rem, 3.2vw, 2.85rem);
+      line-height:1.05;
       letter-spacing:-0.04em;
     }
-    .headline p{
-      margin:.25rem 0;
-      font-size: 1.07rem;
-      color:#2b2b2b;
-      line-height:1.45;
-      max-width: 62ch;
-      font-weight:600;
+    .hero p{
+      margin:.35rem 0 0;
+      color:#1f2937;
+      font-weight:650;
+      line-height:1.5;
+      max-width: 70ch;
+      font-size: 1.05rem;
     }
 
-    .punch{
-      margin-top: .95rem;
-      display:inline-flex;
-      gap:.6rem;
-      align-items:center;
-      flex-wrap:wrap;
+    .subline{
+      margin-top:.85rem;
+      color: var(--muted);
+      font-weight:750;
+      font-size: .98rem;
     }
-
-    .pill{
-      border:2px solid var(--rand-black);
-      border-radius: 999px;
-      padding:.45rem .75rem;
-      font-weight:800;
-      background: var(--rand-yellow);
-      cursor:pointer;
-      user-select:none;
-      transition: transform .12s ease, box-shadow .12s ease;
-    }
-    .pill:hover{ transform: translateY(-1px); box-shadow: 8px 8px 0 rgba(17,17,17,0.07); }
 
     .ctaRow{
-      margin-top: 1.1rem;
+      margin-top: 1rem;
       display:flex;
-      gap:.75rem;
+      gap:.65rem;
       flex-wrap:wrap;
       align-items:center;
     }
     .btn{
       display:inline-flex;
       align-items:center;
-      gap:.55rem;
-      border:2px solid var(--rand-black);
-      background: #fff;
-      padding:.78rem 1rem;
-      font-weight:900;
-      border-radius: 10px;
-      cursor:pointer;
-      user-select:none;
-      transition: transform .12s ease, box-shadow .12s ease;
-    }
-    .btn:hover{ transform: translateY(-1px); box-shadow: 10px 10px 0 rgba(17,17,17,0.08); }
-    .btn.primary{
-      background: var(--rand-red);
-      color:#fff;
-    }
-    .btn small{
-      font-weight:800;
-      opacity:.9;
-    }
-
-    /* Right side: geometric collage */
-    .collage{
-      position:relative;
-      min-height: 320px;
-      border:2px solid var(--rand-black);
-      background:#fff;
-      box-shadow: 10px 10px 0 rgba(17,17,17,0.08);
-      overflow:hidden;
-    }
-    .shape{
-      position:absolute;
-      border:2px solid var(--rand-black);
-      cursor:pointer;
-      user-select:none;
-      transition: transform .12s ease, filter .12s ease;
-    }
-    .shape:hover{ transform: translateY(-1px) rotate(0.25deg); filter: saturate(1.1); }
-
-    .shape.sq1{ width:120px; height:120px; background: var(--rand-blue); top:18px; left:16px; }
-    .shape.sq2{ width:180px; height:70px;  background: var(--rand-yellow); top:30px; right:18px; transform: rotate(2deg); }
-    .shape.sq3{ width:210px; height:120px; background: #fff; bottom:18px; left:18px; }
-    .shape.sq3 .mini{
-      position:absolute; inset:10px;
-      border:2px solid var(--rand-black);
-      display:grid;
-      place-items:center;
-      font-weight:900;
-      letter-spacing:-0.03em;
-      background: rgba(229,62,62,0.08);
-    }
-    .shape.c1{
-      width:120px; height:120px;
-      background: var(--rand-red);
-      border-radius:999px;
-      top:140px; left:170px;
-    }
-    .shape.bar{
-      width:260px; height:44px;
-      background: #fff;
-      bottom: 150px;
-      right: -30px;
-      transform: rotate(-6deg);
-      display:flex;
-      align-items:center;
       justify-content:center;
-      font-weight:900;
-      letter-spacing:-0.02em;
+      gap:.55rem;
+      border:1.5px solid rgba(18,18,18,0.65);
+      background:#fff;
+      padding:.78rem 1rem;
+      border-radius: 12px;
+      font-weight:950;
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
     }
-    .shape.note{
-      width: 210px;
-      height: 120px;
-      background: rgba(49,130,206,0.10);
-      right: 22px;
-      bottom: 18px;
+    .btn.primary{
+      background: var(--a1);
+      color:#fff;
+      border-color: rgba(18,18,18,0.75);
+    }
+    .btn small{ font-weight:900; opacity:.95; }
+    .btn:hover{ filter: brightness(0.99); }
+
+    /* Right: conservative “signal” box with small accent blocks */
+    .signalBox{
+      padding: 1.15rem 1.05rem;
       display:flex;
       flex-direction:column;
-      justify-content:center;
-      padding: 14px 14px 12px;
-      gap:6px;
-      font-weight:900;
+      gap:.85rem;
     }
-    .shape.note span{ display:block; }
-    .shape.note .sub{ font-weight:800; font-size:.9rem; color:#1f2937; opacity:.9; }
+    .signalTitle{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:.75rem;
+    }
+    .signalTitle h3{
+      margin:0;
+      font-size: 1.02rem;
+      letter-spacing:-0.02em;
+    }
+    .signalTitle p{
+      margin:.2rem 0 0;
+      color: var(--muted);
+      font-weight:700;
+      line-height:1.4;
+      font-size:.95rem;
+    }
+
+    .accentRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:.6rem;
+    }
+    .accentCard{
+      border:1px solid var(--border);
+      border-radius: 14px;
+      padding: .75rem .75rem .7rem;
+      background: rgba(255,255,255,0.85);
+      cursor:pointer;
+      user-select:none;
+    }
+    .accentCard .k{
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      font-weight:950;
+      letter-spacing:-0.02em;
+      margin-bottom:.25rem;
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius: 4px;
+      background: var(--a1);
+    }
+    .accentCard .t{
+      color:#1f2937;
+      font-weight:700;
+      line-height:1.4;
+      font-size:.93rem;
+      margin:0;
+    }
+
+    /* Breaker */
+    .breaker{
+      margin-top: 1.15rem;
+      border-left: 4px solid rgba(18,18,18,0.75);
+      padding: .9rem 1.05rem;
+      background: rgba(255,255,255,0.65);
+      border-radius: 14px;
+    }
+    .breaker strong{ display:block; font-size:1.15rem; margin-bottom:.2rem; }
+    .breaker span{ display:block; color: var(--muted); font-weight:750; line-height:1.45; }
 
     /* Sections */
     .section{
-      margin-top: 2.25rem;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
+      margin-top: 1.55rem;
     }
     .sectionHead{
       display:flex;
@@ -283,265 +255,222 @@
       justify-content:space-between;
       gap:1rem;
       flex-wrap:wrap;
-      padding-top: .75rem;
+      margin-bottom: .8rem;
     }
     .sectionHead h2{
       margin:0;
-      font-size: 1.55rem;
+      font-size: 1.45rem;
       letter-spacing:-0.03em;
     }
     .sectionHead p{
       margin:0;
-      color: var(--rand-gray);
-      font-weight:700;
-      max-width: 70ch;
+      color: var(--muted);
+      font-weight:750;
+      max-width: 80ch;
+      line-height:1.4;
     }
 
     .grid4{
       display:grid;
       grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 1rem;
-      margin-top:.5rem;
+      gap: .85rem;
     }
     .card{
-      border:2px solid var(--rand-black);
-      background:#fff;
-      padding: 1rem 1rem .95rem;
-      box-shadow: 10px 10px 0 rgba(17,17,17,0.06);
+      border:1px solid var(--border);
+      background: var(--card);
+      border-radius: 16px;
+      padding: .95rem .95rem .9rem;
       cursor:pointer;
       user-select:none;
-      transition: transform .12s ease, box-shadow .12s ease;
-      min-height: 150px;
     }
-    .card:hover{ transform: translateY(-1px); box-shadow: 12px 12px 0 rgba(17,17,17,0.08); }
     .card .kicker{
-      font-weight:900;
-      letter-spacing:-0.02em;
       display:flex;
       align-items:center;
       gap:.5rem;
-      margin-bottom:.4rem;
-    }
-    .dot{
-      width:12px; height:12px;
-      border:2px solid var(--rand-black);
-      background: var(--rand-yellow);
-      border-radius: 3px;
-      display:inline-block;
+      font-weight:950;
+      letter-spacing:-0.02em;
+      margin-bottom:.35rem;
     }
     .card p{
-      margin:.25rem 0 0;
-      color:#2b2b2b;
-      line-height:1.45;
-      font-weight:650;
-      font-size: .98rem;
-    }
-
-    .fullWidthNote{
-      border:2px solid var(--rand-black);
-      background: rgba(246,224,94,0.35);
-      padding: 1rem 1.1rem;
-      box-shadow: 10px 10px 0 rgba(17,17,17,0.06);
-      font-weight:900;
-      line-height:1.25;
-      letter-spacing:-0.02em;
-      cursor:pointer;
-      user-select:none;
-    }
-    .fullWidthNote span{
-      display:block;
-      font-weight:800;
-      margin-top:.25rem;
-      color:#111;
-      opacity:.92;
-      letter-spacing:-0.01em;
-    }
-
-    /* Big “This is not SEO” breaker */
-    .breaker{
-      margin-top: 2.2rem;
-      border:2px solid var(--rand-black);
-      background: #fff;
-      box-shadow: 14px 14px 0 rgba(17,17,17,0.09);
-      padding: 1.2rem 1.2rem 1.05rem;
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 1rem;
-      align-items:center;
-      cursor:pointer;
-      user-select:none;
-    }
-    .breaker h3{
       margin:0;
-      font-size: clamp(1.4rem, 2.4vw, 2.05rem);
-      line-height:1.06;
-      letter-spacing:-0.04em;
-    }
-    .breaker p{
-      margin:0;
-      color:#2b2b2b;
+      color:#1f2937;
       font-weight:700;
       line-height:1.45;
+      font-size:.95rem;
     }
-    .breaker .stamp{
-      border:2px solid var(--rand-black);
-      padding:.6rem .75rem;
-      font-weight:950;
-      display:inline-flex;
-      gap:.5rem;
-      align-items:center;
-      justify-content:center;
-      background: rgba(229,62,62,0.10);
-      transform: rotate(-1.5deg);
-      width: fit-content;
+
+    .note{
+      margin-top: .9rem;
+      border:1px solid var(--border);
+      background: rgba(37,99,235,0.07);
+      border-radius: 16px;
+      padding: .9rem 1rem;
+      font-weight:850;
+      line-height:1.35;
+      cursor:pointer;
+      user-select:none;
+    }
+    .note span{
+      display:block;
+      margin-top:.25rem;
+      font-weight:750;
+      color: var(--muted);
     }
 
     /* Offerings */
     .offerGrid{
-      margin-top: 1rem;
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      gap: .85rem;
+      margin-top: .2rem;
     }
     .offer{
-      border:2px solid var(--rand-black);
-      background:#fff;
-      padding: 1rem 1rem 1.05rem;
-      box-shadow: 10px 10px 0 rgba(17,17,17,0.06);
+      border:1px solid var(--border);
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1rem 1rem .95rem;
       cursor:pointer;
       user-select:none;
     }
-    .offer h4{
-      margin:.05rem 0 .35rem;
-      font-size: 1.15rem;
-      letter-spacing:-0.03em;
+    .offer h3{
+      margin:0 0 .25rem;
+      font-size: 1.1rem;
+      letter-spacing:-0.02em;
     }
     .offer p{
       margin:.25rem 0 0;
-      color:#2b2b2b;
-      line-height:1.45;
-      font-weight:650;
-    }
-    .offer ul{
-      margin:.6rem 0 0;
-      padding-left: 1.05rem;
       color:#1f2937;
       font-weight:700;
       line-height:1.45;
     }
+    .offer ul{
+      margin:.65rem 0 0;
+      padding-left: 1.05rem;
+      color:#1f2937;
+      font-weight:750;
+      line-height:1.5;
+    }
 
     /* Pricing */
     .pricing{
-      margin-top: 1rem;
       display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 1rem;
+      grid-template-columns: 1fr 1fr;
+      gap: .85rem;
+      margin-top: .2rem;
     }
     .priceCard{
-      border:2px solid var(--rand-black);
-      background:#fff;
-      padding: 1.05rem 1rem 1rem;
-      box-shadow: 10px 10px 0 rgba(17,17,17,0.06);
+      border:1px solid var(--border);
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1rem 1rem .95rem;
       cursor:pointer;
       user-select:none;
     }
-    .priceCard .tier{
-      font-weight:950;
-      letter-spacing:-0.03em;
+    .tier{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:.75rem;
       flex-wrap:wrap;
+      font-weight:950;
+      letter-spacing:-0.02em;
     }
     .badge{
-      border:2px solid var(--rand-black);
-      padding:.25rem .5rem;
+      border:1.5px solid rgba(18,18,18,0.65);
+      border-radius: 999px;
+      padding:.25rem .55rem;
       font-weight:950;
       font-size:.82rem;
-      background: var(--rand-yellow);
+      background: rgba(245,158,11,0.18);
     }
     .price{
-      margin:.55rem 0 .35rem;
-      font-size: 1.75rem;
+      margin:.55rem 0 .25rem;
+      font-size: 1.65rem;
       font-weight:1000;
       letter-spacing:-0.04em;
     }
     .price small{
       font-size: .95rem;
       font-weight:850;
-      color: var(--rand-gray);
+      color: var(--muted);
       letter-spacing:-0.01em;
     }
     .freePop{
       display:inline-block;
-      margin-left:.25rem;
-      padding:.2rem .45rem;
-      border:2px solid var(--rand-black);
-      background: rgba(22,163,74,0.15);
+      margin-left:.35rem;
+      padding:.18rem .45rem;
+      border-radius: 999px;
+      border:1.5px solid rgba(18,18,18,0.65);
+      background: rgba(22,163,74,0.14);
       font-weight:1000;
-      transform: rotate(-1deg);
+      white-space:nowrap;
     }
     .priceCard p{
       margin:.25rem 0 0;
-      color:#2b2b2b;
+      color:#1f2937;
+      font-weight:700;
       line-height:1.45;
-      font-weight:650;
     }
     .priceCard ul{
       margin:.65rem 0 0;
       padding-left: 1.05rem;
       color:#1f2937;
       font-weight:750;
-      line-height:1.45;
+      line-height:1.5;
     }
     .priceCtas{
       margin-top:.85rem;
       display:flex;
-      gap:.7rem;
+      gap:.65rem;
       flex-wrap:wrap;
+      align-items:center;
+    }
+
+    /* Contact */
+    .contactBox{
+      max-width: var(--content-width);
     }
 
     /* Footer */
     footer{
-      margin-top: 2.5rem;
-      padding-top: 1.25rem;
-      border-top: 2px solid var(--rand-black);
+      margin-top: 2.25rem;
+      padding-top: 1.15rem;
+      border-top: 1px solid var(--border);
       display:flex;
-      align-items:center;
       justify-content:space-between;
       gap:1rem;
       flex-wrap:wrap;
-      color:#111;
-    }
-    footer small{
-      color: var(--rand-gray);
-      font-weight:700;
+      color: var(--muted);
+      font-weight:750;
     }
 
     /* Responsive */
     @media (max-width: 980px){
       .hero{ grid-template-columns: 1fr; }
       .grid4{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .breaker{ grid-template-columns: 1fr; }
       .offerGrid{ grid-template-columns: 1fr; }
+      .pricing{ grid-template-columns: 1fr; }
     }
     @media (max-width: 560px){
       .wrap{ padding-left: 1rem; padding-right: 1rem; }
       .grid4{ grid-template-columns: 1fr; }
-      .pricing{ grid-template-columns: 1fr; }
-      .nav{ justify-content:flex-start; }
     }
 
-    /* Click-color classes (applied by JS) */
-    .cc1{ background: var(--c1) !important; color:#fff !important; }
-    .cc2{ background: var(--c2) !important; color:#fff !important; }
-    .cc3{ background: var(--c3) !important; color:#fff !important; }
-    .cc4{ background: var(--c4) !important; color:#111 !important; }
-    .cc5{ background: var(--c5) !important; color:#fff !important; }
-    .cc6{ background: var(--c6) !important; color:#fff !important; }
+    /* Click-color cycle (now subtle: soft background tints) */
+    .cc1{ background: rgba(37,99,235,0.08) !important; }
+    .cc2{ background: rgba(220,38,38,0.08) !important; }
+    .cc3{ background: rgba(22,163,74,0.08) !important; }
+    .cc4{ background: rgba(245,158,11,0.10) !important; }
+    .cc5{ background: rgba(124,58,237,0.08) !important; }
+    .cc6{ background: rgba(17,17,17,0.06) !important; }
 
-    .ccBorder{ border-color: rgba(17,17,17,0.85) !important; }
+    /* Primary button cycles more boldly (so “fun” still shows up where it matters) */
+    .btn.cc1{ background: var(--a1) !important; color:#fff !important; }
+    .btn.cc2{ background: var(--a2) !important; color:#fff !important; }
+    .btn.cc3{ background: var(--a3) !important; color:#fff !important; }
+    .btn.cc4{ background: var(--a4) !important; color:#111 !important; }
+    .btn.cc5{ background: var(--a5) !important; color:#fff !important; }
+    .btn.cc6{ background: var(--a6) !important; color:#fff !important; }
   </style>
 </head>
 
@@ -549,12 +478,12 @@
   <div class="wrap" id="top">
     <header class="topbar">
       <div class="brand">
-        <div class="mark click-color" title="Click me">
+        <div class="mark click-color" title="Click for a subtle accent">
           <span>Q</span>
         </div>
         <div class="brandname">
-          <strong>Quontora</strong>
-          <small>We build AIVI (AI Visibility Index)</small>
+          <div class="name">Quontora</div>
+          <div class="tag">AIVI — AI Visibility Index</div>
         </div>
       </div>
       <nav class="nav" aria-label="Primary">
@@ -566,100 +495,95 @@
     </header>
 
     <section class="hero" aria-label="Hero">
-      <div class="headline click-color">
+      <div class="panel click-color">
         <h1>AI already has an opinion about your brand.</h1>
-        <p>Quontora built <strong>AIVI</strong> — the <strong>AI Visibility Index</strong> — to show you what that opinion is, and what’s shaping it.</p>
-        <p>Not rankings. Not vibes. A clear read on how AI systems interpret your site’s structure, language, trust, and content alignment.</p>
-
-        <div class="punch">
-          <div class="pill click-color" role="button" tabindex="0">AI perception, measured</div>
-          <div class="pill click-color" role="button" tabindex="0">Findings, not guesswork</div>
-          <div class="pill click-color" role="button" tabindex="0">Built for small orgs with big stakes</div>
-        </div>
+        <p>Quontora built <strong>AIVI</strong> (the <strong>AI Visibility Index</strong>) to show you what AI systems are likely understanding — and what’s shaping that perception.</p>
+        <p class="subline">AIVI is not a promise of rankings. It’s a measurement of interpretability: clarity, structure, trust, and content alignment.</p>
 
         <div class="ctaRow">
           <a class="btn primary click-color" href="https://aivindex.io" target="_blank" rel="noopener">
-            Open AIVI
-            <small>→</small>
+            Open AIVI <small>→</small>
           </a>
           <a class="btn click-color" href="#pricing">
-            Request access
-            <small>↓</small>
+            Request access <small>↓</small>
           </a>
         </div>
+
+        <div class="breaker click-color" style="margin-top:1.05rem;">
+          <strong>This is not SEO. This is AI perception.</strong>
+          <span>If AI can’t clearly understand you, it can’t confidently recommend you.</span>
+        </div>
       </div>
 
-      <aside class="collage" aria-label="Geometric collage">
-        <div class="shape sq1 click-color" title="Click for color"></div>
-        <div class="shape sq2 click-color" title="Click for color"></div>
-        <div class="shape c1 click-color" title="Click for color"></div>
-
-        <div class="shape sq3 click-color" title="Click for color">
-          <div class="mini">AIVI</div>
+      <aside class="panel signalBox" aria-label="Signal summary">
+        <div class="signalTitle">
+          <div>
+            <h3>What you get from AIVI</h3>
+            <p>One index. Four layers. Practical findings.</p>
+          </div>
         </div>
 
-        <div class="shape bar click-color" title="Click for color">
-          AI Visibility Index
-        </div>
-
-        <div class="shape note click-color" title="Click for color">
-          <span>Signal, not SEO.</span>
-          <span class="sub">How AI reads you.</span>
+        <div class="accentRow">
+          <div class="accentCard click-color" role="button" tabindex="0">
+            <div class="k"><span class="dot"></span>Fast readout</div>
+            <p class="t">A shareable signal of how AI is likely interpreting your site.</p>
+          </div>
+          <div class="accentCard click-color" role="button" tabindex="0">
+            <div class="k"><span class="dot" style="background:var(--a2)"></span>Clear priorities</div>
+            <p class="t">Findings ranked by impact, so teams know where to start.</p>
+          </div>
+          <div class="accentCard click-color" role="button" tabindex="0">
+            <div class="k"><span class="dot" style="background:var(--a3)"></span>Explainable</div>
+            <p class="t">Evidence-style notes: what was observed and why it matters.</p>
+          </div>
+          <div class="accentCard click-color" role="button" tabindex="0">
+            <div class="k"><span class="dot" style="background:var(--a4)"></span>Actionable</div>
+            <p class="t">Opportunities phrased as changes you can ship.</p>
+          </div>
         </div>
       </aside>
-    </section>
-
-    <section class="breaker click-color" aria-label="Breaker">
-      <div>
-        <h3>This is not SEO.<br/>This is AI perception.</h3>
-        <div style="height:.6rem"></div>
-        <p>If AI can’t clearly understand you, it can’t confidently recommend you.</p>
-      </div>
-      <div style="display:flex; justify-content:flex-start; align-items:center; gap:.75rem; flex-wrap:wrap;">
-        <div class="stamp click-color">Observed patterns → usable actions</div>
-      </div>
     </section>
 
     <section class="section" id="aivi" aria-label="AIVI">
       <div class="sectionHead">
         <h2>What AIVI measures</h2>
-        <p>AIVI turns the messy reality of “AI understanding” into a single index — and four clear layers you can improve.</p>
+        <p>AIVI converts “AI understanding” into a single index, backed by four layers you can improve.</p>
       </div>
 
       <div class="grid4" role="list" aria-label="Four AIVI layers">
         <div class="card click-color" role="listitem">
           <div class="kicker"><span class="dot"></span>Structure & Crawlability</div>
-          <p>Can AI agents access, parse, and traverse your site cleanly — or do they hit friction, dead ends, and ambiguity?</p>
+          <p>Whether AI agents can access, parse, and traverse your site without friction.</p>
         </div>
         <div class="card click-color" role="listitem">
-          <div class="kicker"><span class="dot"></span>Authority & Trust</div>
-          <p>Signals that make AI more willing to treat you as real and reliable: identity clarity, provenance, and consistency.</p>
+          <div class="kicker"><span class="dot" style="background:var(--a2)"></span>Authority & Trust</div>
+          <p>Signals that help AI treat you as real and reliable: identity, provenance, consistency.</p>
         </div>
         <div class="card click-color" role="listitem">
-          <div class="kicker"><span class="dot"></span>Clarity & Language</div>
-          <p>Do you communicate what you do in a way AI can compress into a confident summary — without guessing?</p>
+          <div class="kicker"><span class="dot" style="background:var(--a3)"></span>Clarity & Language</div>
+          <p>How clearly AI can summarize what you do — without guessing or hallucinating.</p>
         </div>
         <div class="card click-color" role="listitem">
-          <div class="kicker"><span class="dot"></span>Content–AI Alignment</div>
-          <p>How well your content answers real intent with reusable structure: definitions, entities, coverage, and internal support.</p>
+          <div class="kicker"><span class="dot" style="background:var(--a4)"></span>Content–AI Alignment</div>
+          <p>How well your content answers intent with reusable structure (entities, coverage, support).</p>
         </div>
       </div>
 
-      <div class="fullWidthNote click-color" role="button" tabindex="0" aria-label="Index note">
+      <div class="note click-color" role="button" tabindex="0" aria-label="Index note">
         Each layer contributes to your AI Visibility Index reading — a single, interpretable signal of how AI systems perceive your presence.
-        <span>It’s designed to be explainable enough to act on, without turning your site into a robot brochure.</span>
+        <span>Designed to be explainable enough to act on, without turning your site into a robot brochure.</span>
       </div>
     </section>
 
     <section class="section" id="offerings" aria-label="Offerings">
       <div class="sectionHead">
-        <h2>What Quontora delivers</h2>
-        <p>Pick the level of depth you need — quick clarity, or a guided transformation plan.</p>
+        <h2>Offerings</h2>
+        <p>Choose a quick scan for clarity — or a private deep report for implementation-ready guidance.</p>
       </div>
 
       <div class="offerGrid">
         <div class="offer click-color">
-          <h4>AIVI Scan (Public Report)</h4>
+          <h3>AIVI Scan (Public Report)</h3>
           <p>A fast, credible readout you can share internally: what AI is likely “seeing,” and what’s shaping that view.</p>
           <ul>
             <li>AIVI index + layer breakdown</li>
@@ -670,13 +594,13 @@
         </div>
 
         <div class="offer click-color">
-          <h4>AIVI Deep Report (Private)</h4>
+          <h3>AIVI Deep Report (Private)</h3>
           <p>For teams that want to move from insight to implementation — with clear, structured next steps.</p>
           <ul>
             <li>Granular findings + implementation guidance</li>
-            <li>Technical + content alignment roadmap</li>
             <li>Prioritized recommendations (effort vs impact)</li>
-            <li>Clear language upgrades for AI summaries</li>
+            <li>Technical + content alignment roadmap</li>
+            <li>Clarity upgrades for AI summaries</li>
           </ul>
         </div>
       </div>
@@ -685,7 +609,7 @@
     <section class="section" id="pricing" aria-label="Pricing">
       <div class="sectionHead">
         <h2>Pricing</h2>
-        <p>Two levels by design. AIVI is meant to feel simple to adopt — and serious when you need depth.</p>
+        <p>Two levels by design. Simple to adopt. Serious when you need depth.</p>
       </div>
 
       <div class="pricing">
@@ -697,7 +621,7 @@
           <div class="price">
             $249 <small>/ domain <span class="freePop click-color">FREE during early access</span></small>
           </div>
-          <p>Get a strong, shareable readout of how AI systems interpret your site — without turning it into a long audit doc.</p>
+          <p>Get a shareable readout of how AI systems interpret your site — and what’s limiting confidence.</p>
           <ul>
             <li>Index + four-layer breakdown</li>
             <li>Top findings & quick wins</li>
@@ -712,15 +636,15 @@
         <div class="priceCard click-color">
           <div class="tier">
             <span>Private Deep Report</span>
-            <span class="badge click-color" style="background:rgba(49,130,206,0.18);">By request</span>
+            <span class="badge click-color" style="background: rgba(37,99,235,0.10);">By request</span>
           </div>
           <div class="price">
             Custom <small>scope-based</small>
           </div>
-          <p>For organizations that want a practical plan — not just a diagnosis. Best for teams shipping changes.</p>
+          <p>Implementation-ready guidance for teams shipping changes across content, structure, and trust signals.</p>
           <ul>
-            <li>Implementation-ready recommendations</li>
-            <li>Prioritization framework</li>
+            <li>Granular findings + next steps</li>
+            <li>Prioritized roadmap</li>
             <li>Clarity upgrades for AI summaries</li>
             <li>Optional ongoing advisory</li>
           </ul>
@@ -735,16 +659,17 @@
     <section class="section" id="contact" aria-label="Contact">
       <div class="sectionHead">
         <h2>Contact</h2>
-        <p>If you want AIVI access, or you want Quontora to run a private deep report, reach out.</p>
+        <p>For access to AIVI, or to request a private deep report, reach out.</p>
       </div>
 
-      <div class="offer click-color" style="max-width: var(--content-width);">
-        <h4>Request access / talk to us</h4>
-        <p>
-          Email: <strong>hello@quontora.com</strong><br/>
-          Include: your domain, your organization type, and what you want AI to understand about you.
+      <div class="panel contactBox click-color">
+        <p style="margin:0; color:#1f2937; font-weight:750; line-height:1.55;">
+          Email <strong>hello@quontora.com</strong><br/>
+          Include your domain + what outcome you want (e.g., “be clearly recommendable for X”).<br/>
+          We’ll respond with access and next steps.
         </p>
-        <div class="ctaRow" style="margin-top:.85rem;">
+
+        <div class="ctaRow" style="margin-top:.9rem;">
           <a class="btn primary click-color" href="mailto:hello@quontora.com?subject=AIVI%20Access%20Request">Email Quontora</a>
           <a class="btn click-color" href="https://aivindex.io" target="_blank" rel="noopener">Open AIVI</a>
         </div>
@@ -752,19 +677,15 @@
     </section>
 
     <footer>
-      <div style="display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;">
-        <strong>Quontora</strong>
-        <small>© 2025 • AIVI (AI Visibility Index)</small>
-      </div>
-      <div style="display:flex; gap:.6rem; flex-wrap:wrap;">
-        <a class="navLink click-color" href="#top" style="border:1px solid var(--rand-border); padding:.45rem .7rem; border-radius:999px; font-weight:800; background:rgba(255,255,255,0.7);">Back to top</a>
-      </div>
+      <div>© 2025 Quontora • AIVI (AI Visibility Index)</div>
+      <div><a class="click-color" href="#top">Back to top</a></div>
     </footer>
   </div>
 
   <script>
     (function(){
       const cycle = ["cc1","cc2","cc3","cc4","cc5","cc6"];
+
       function nextClass(el){
         const idx = cycle.findIndex(c => el.classList.contains(c));
         if(idx >= 0){
@@ -775,12 +696,8 @@
         }
       }
 
-      function applyClickColor(el){
-        el.addEventListener("click", (e) => {
-          // If clicking a link inside a clickable card/box, still allow navigation
-          // but also color-cycle the clicked element itself for the “fun” behavior.
-          nextClass(el);
-        });
+      function bind(el){
+        el.addEventListener("click", () => nextClass(el));
         el.addEventListener("keydown", (e) => {
           if(e.key === "Enter" || e.key === " "){
             e.preventDefault();
@@ -789,13 +706,7 @@
         });
       }
 
-      document.querySelectorAll(".click-color").forEach(applyClickColor);
-
-      // Extra: make the Q mark cycle both background + border vibe
-      const mark = document.querySelector(".mark");
-      if(mark){
-        mark.addEventListener("click", () => mark.classList.toggle("ccBorder"));
-      }
+      document.querySelectorAll(".click-color").forEach(bind);
     })();
   </script>
 </body>
