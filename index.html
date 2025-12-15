@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <!--
   Quontora.com (Umbrella Website)
-  Version: v2025.12.15-2 (Content-first, toned-down Paul Rand accents)
+  Version: v2025.12.15-3 (Clean hierarchy + brand-forward + color accents restored)
   Built by ChatGPT - 2025-12-15
 
   NOTES:
-  - Same overall structure and “fun on click” behavior, but much more conservative.
-  - Content comes first: clearer hierarchy, fewer shapes, calmer palette, tighter sections.
-  - Fun elements are now accents (small pops + click-to-cycle) instead of dominating layout.
+  - Content-first structure: clearer hierarchy, fewer competing blocks, more whitespace.
+  - Quontora (company) is now visually primary; AIVI is the flagship product under it.
+  - AIVI section includes a direct link to the AIVI index (no pricing here).
+  - Quontora offerings restored to include AI Consulting (and related services).
+  - Color is back as controlled accents + subtle click-to-cycle (not eliminated).
+  - Footer added.
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quontora — AIVI (AI Visibility Index)</title>
-  <meta name="description" content="Quontora builds AIVI (AI Visibility Index): a clear way to understand how AI systems interpret your website and brand." />
+  <title>Quontora — AIVI (AI Visibility Index) & AI Consulting</title>
+  <meta name="description" content="Quontora builds AIVI (AI Visibility Index) and provides AI consulting to help organizations become clearly understood and confidently recommendable." />
   <style>
     :root{
       --max-width: 1120px;
-      --content-width: 840px;
+      --content-width: 860px;
       --pad-v: 3vh;
       --pad-h: 2rem;
 
-      /* Calm base */
-      --ink: #121212;
-      --muted: #5b6472;
+      /* Base */
+      --ink: #0f172a;
+      --muted: #556070;
       --paper: #fbfbf7;
       --card: #ffffff;
-      --border: rgba(18,18,18,0.14);
+      --border: rgba(15, 23, 42, 0.14);
 
-      /* Accent palette (used sparingly + click cycle) */
+      /* Accents (used intentionally) */
       --a1: #2563EB; /* blue */
       --a2: #DC2626; /* red */
       --a3: #16A34A; /* green */
       --a4: #F59E0B; /* amber */
       --a5: #7C3AED; /* purple */
-      --a6: #111111; /* black */
+      --a6: #111827; /* deep ink */
     }
 
     *{ box-sizing:border-box; }
+    html, body{ height:100%; }
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -47,106 +51,132 @@
       overflow-x:hidden;
     }
     a{ color:inherit; text-decoration:none; }
-    strong{ font-weight:900; letter-spacing:-0.01em; }
+    strong{ font-weight:950; letter-spacing:-0.01em; }
 
     .wrap{
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: calc(var(--pad-v) + 1rem) var(--pad-h) calc(var(--pad-v) + 2.5rem);
+      padding: calc(var(--pad-v) + 1rem) var(--pad-h) calc(var(--pad-v) + 2.75rem);
     }
 
     /* Header */
-    .topbar{
+    header{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:1rem;
-      padding: .35rem 0 1.1rem;
+      padding: .25rem 0 1.2rem;
     }
+
     .brand{
       display:flex;
       align-items:center;
-      gap:.85rem;
+      gap:.95rem;
       user-select:none;
+      min-width: 280px;
     }
     .mark{
-      width:40px; height:40px;
-      border: 1.5px solid rgba(18,18,18,0.65);
-      border-radius: 10px;
+      width:46px; height:46px;
+      border: 1.5px solid rgba(15,23,42,0.55);
+      border-radius: 14px;
+      background:#fff;
       display:grid;
       place-items:center;
-      background:#fff;
       cursor:pointer;
+      position:relative;
+      overflow:hidden;
+    }
+    .mark:before{
+      content:"";
+      position:absolute;
+      inset:-20px;
+      background: radial-gradient(circle at 30% 30%, rgba(37,99,235,0.22), transparent 55%),
+                  radial-gradient(circle at 70% 70%, rgba(245,158,11,0.18), transparent 55%);
+      pointer-events:none;
     }
     .mark span{
-      font-weight:950;
-      letter-spacing:-0.04em;
-    }
-    .brandname{
-      display:flex;
-      flex-direction:column;
-      line-height:1.1;
-    }
-    .brandname .name{ font-size:1.02rem; font-weight:950; letter-spacing:-0.02em; }
-    .brandname .tag{ font-size:.86rem; font-weight:750; color: var(--muted); }
-
-    .nav{
-      display:flex;
-      gap:.6rem;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .nav a{
-      border:1px solid var(--border);
-      padding:.5rem .7rem;
-      border-radius: 999px;
-      font-weight:800;
-      font-size:.9rem;
-      background: rgba(255,255,255,0.75);
-      cursor:pointer;
-    }
-    .nav a:hover{ border-color: rgba(18,18,18,0.3); }
-
-    /* Layout */
-    .hero{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 1.25rem;
-      align-items:start;
-      margin-top: .25rem;
-    }
-
-    .panel{
-      border:1px solid var(--border);
-      background: var(--card);
-      border-radius: 16px;
-      padding: 1.2rem 1.15rem;
-    }
-
-    .hero h1{
-      margin:0 0 .55rem;
-      font-size: clamp(1.9rem, 3.2vw, 2.85rem);
-      line-height:1.05;
-      letter-spacing:-0.04em;
-    }
-    .hero p{
-      margin:.35rem 0 0;
-      color:#1f2937;
-      font-weight:650;
-      line-height:1.5;
-      max-width: 70ch;
+      position:relative;
+      font-weight:1000;
+      letter-spacing:-0.06em;
       font-size: 1.05rem;
     }
 
-    .subline{
-      margin-top:.85rem;
+    .brandText{
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+    }
+    .brandText .name{
+      font-size: 1.25rem;     /* bigger Quontora */
+      font-weight: 1000;
+      letter-spacing:-0.03em;
+    }
+    .brandText .sub{
+      font-size: .92rem;
+      font-weight: 750;
       color: var(--muted);
-      font-weight:750;
-      font-size: .98rem;
+      margin-top: .18rem;
+    }
+    .brandText .sub strong{
+      font-weight: 950;
+      color: #1f2937;
+    }
+
+    nav{
+      display:flex;
+      gap:.55rem;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    nav a{
+      border: 1px solid var(--border);
+      padding: .52rem .72rem;
+      border-radius: 999px;
+      font-weight: 850;
+      font-size: .92rem;
+      background: rgba(255,255,255,0.75);
+      cursor:pointer;
+      transition: border-color .12s ease, transform .12s ease;
+    }
+    nav a:hover{ border-color: rgba(15,23,42,0.28); transform: translateY(-1px); }
+
+    /* Layout / Sections */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 1.1rem;
+      align-items:start;
+    }
+
+    .panel{
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 18px;
+      padding: 1.25rem 1.2rem;
+    }
+
+    /* Hero content */
+    h1{
+      margin:0 0 .55rem;
+      font-size: clamp(2.1rem, 3.4vw, 3.15rem);
+      line-height: 1.05;
+      letter-spacing:-0.05em;
+    }
+    .lede{
+      margin:.25rem 0 0;
+      color:#111827;
+      font-weight: 700;
+      line-height:1.55;
+      font-size: 1.05rem;
+      max-width: 72ch;
+    }
+    .lede .muted{
+      color: var(--muted);
+      font-weight: 750;
     }
 
     .ctaRow{
-      margin-top: 1rem;
+      margin-top: 1.05rem;
       display:flex;
       gap:.65rem;
       flex-wrap:wrap;
@@ -157,97 +187,111 @@
       align-items:center;
       justify-content:center;
       gap:.55rem;
-      border:1.5px solid rgba(18,18,18,0.65);
-      background:#fff;
-      padding:.78rem 1rem;
-      border-radius: 12px;
-      font-weight:950;
+      border: 1.5px solid rgba(15,23,42,0.55);
+      background: #fff;
+      color: var(--ink);
+      padding: .78rem 1rem;
+      border-radius: 14px;
+      font-weight: 950;
       cursor:pointer;
       user-select:none;
       white-space:nowrap;
+      transition: transform .12s ease, filter .12s ease;
     }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(0.99); }
     .btn.primary{
       background: var(--a1);
       color:#fff;
-      border-color: rgba(18,18,18,0.75);
+      border-color: rgba(15,23,42,0.68);
     }
-    .btn small{ font-weight:900; opacity:.95; }
-    .btn:hover{ filter: brightness(0.99); }
+    .btn.secondary{
+      background: rgba(37,99,235,0.08);
+      border-color: rgba(37,99,235,0.35);
+      color:#111827;
+    }
+    .btn small{ font-weight: 950; opacity:.95; }
 
-    /* Right: conservative “signal” box with small accent blocks */
-    .signalBox{
-      padding: 1.15rem 1.05rem;
-      display:flex;
-      flex-direction:column;
-      gap:.85rem;
+    /* Hero proof bar (color accent, not busy) */
+    .proof{
+      margin-top: 1.05rem;
+      border-left: 4px solid rgba(37,99,235,0.7);
+      background: rgba(255,255,255,0.7);
+      border-radius: 14px;
+      padding: .9rem 1rem;
     }
-    .signalTitle{
+    .proof strong{
+      display:block;
+      font-size: 1.06rem;
+      letter-spacing:-0.02em;
+      margin-bottom:.25rem;
+    }
+    .proof span{
+      display:block;
+      color: var(--muted);
+      font-weight: 750;
+      line-height:1.45;
+    }
+
+    /* Right column: calm “what we do” summary */
+    .summaryHead{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
       gap:.75rem;
+      margin-bottom:.6rem;
     }
-    .signalTitle h3{
+    .summaryHead h2{
       margin:0;
-      font-size: 1.02rem;
+      font-size: 1.05rem;
       letter-spacing:-0.02em;
     }
-    .signalTitle p{
-      margin:.2rem 0 0;
+    .summaryHead p{
+      margin:.25rem 0 0;
       color: var(--muted);
-      font-weight:700;
-      line-height:1.4;
+      font-weight: 750;
+      line-height:1.45;
       font-size:.95rem;
     }
 
-    .accentRow{
+    .miniGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:.6rem;
+      gap:.65rem;
+      margin-top:.7rem;
     }
-    .accentCard{
-      border:1px solid var(--border);
-      border-radius: 14px;
-      padding: .75rem .75rem .7rem;
+    .mini{
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: .78rem .8rem;
       background: rgba(255,255,255,0.85);
       cursor:pointer;
       user-select:none;
     }
-    .accentCard .k{
+    .mini .k{
       display:flex;
       align-items:center;
       gap:.5rem;
-      font-weight:950;
+      font-weight: 950;
       letter-spacing:-0.02em;
       margin-bottom:.25rem;
+      font-size: .95rem;
     }
     .dot{
       width:10px; height:10px;
       border-radius: 4px;
       background: var(--a1);
     }
-    .accentCard .t{
-      color:#1f2937;
-      font-weight:700;
-      line-height:1.4;
-      font-size:.93rem;
+    .mini p{
       margin:0;
+      color:#111827;
+      font-weight: 720;
+      line-height:1.4;
+      font-size:.92rem;
     }
 
-    /* Breaker */
-    .breaker{
-      margin-top: 1.15rem;
-      border-left: 4px solid rgba(18,18,18,0.75);
-      padding: .9rem 1.05rem;
-      background: rgba(255,255,255,0.65);
-      border-radius: 14px;
-    }
-    .breaker strong{ display:block; font-size:1.15rem; margin-bottom:.2rem; }
-    .breaker span{ display:block; color: var(--muted); font-weight:750; line-height:1.45; }
-
-    /* Sections */
-    .section{
-      margin-top: 1.55rem;
+    /* Section scaffolding */
+    section.block{
+      margin-top: 1.6rem;
     }
     .sectionHead{
       display:flex;
@@ -255,220 +299,152 @@
       justify-content:space-between;
       gap:1rem;
       flex-wrap:wrap;
-      margin-bottom: .8rem;
+      margin-bottom: .85rem;
     }
     .sectionHead h2{
       margin:0;
-      font-size: 1.45rem;
+      font-size: 1.55rem;
       letter-spacing:-0.03em;
     }
     .sectionHead p{
       margin:0;
       color: var(--muted);
-      font-weight:750;
-      max-width: 80ch;
-      line-height:1.4;
+      font-weight: 750;
+      max-width: 85ch;
+      line-height:1.45;
     }
 
-    .grid4{
+    .grid3{
       display:grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
+      grid-template-columns: repeat(3, minmax(0,1fr));
       gap: .85rem;
     }
     .card{
-      border:1px solid var(--border);
+      border: 1px solid var(--border);
       background: var(--card);
-      border-radius: 16px;
-      padding: .95rem .95rem .9rem;
+      border-radius: 18px;
+      padding: 1rem 1rem .95rem;
       cursor:pointer;
       user-select:none;
     }
-    .card .kicker{
+    .card .title{
       display:flex;
       align-items:center;
-      gap:.5rem;
-      font-weight:950;
+      gap:.55rem;
+      font-weight: 1000;
       letter-spacing:-0.02em;
       margin-bottom:.35rem;
     }
     .card p{
       margin:0;
-      color:#1f2937;
-      font-weight:700;
-      line-height:1.45;
-      font-size:.95rem;
+      color:#111827;
+      font-weight: 720;
+      line-height:1.5;
+      font-size: .98rem;
+    }
+    .card ul{
+      margin:.75rem 0 0;
+      padding-left: 1.05rem;
+      color:#111827;
+      font-weight: 750;
+      line-height:1.5;
+    }
+
+    /* AIVI feature grid */
+    .grid4{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: .85rem;
     }
 
     .note{
-      margin-top: .9rem;
-      border:1px solid var(--border);
-      background: rgba(37,99,235,0.07);
-      border-radius: 16px;
-      padding: .9rem 1rem;
-      font-weight:850;
-      line-height:1.35;
+      margin-top: .85rem;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: .95rem 1rem;
+      background: linear-gradient(90deg, rgba(37,99,235,0.08), rgba(245,158,11,0.06));
+      font-weight: 850;
+      line-height:1.4;
       cursor:pointer;
       user-select:none;
     }
     .note span{
       display:block;
       margin-top:.25rem;
-      font-weight:750;
       color: var(--muted);
-    }
-
-    /* Offerings */
-    .offerGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: .85rem;
-      margin-top: .2rem;
-    }
-    .offer{
-      border:1px solid var(--border);
-      background: var(--card);
-      border-radius: 16px;
-      padding: 1rem 1rem .95rem;
-      cursor:pointer;
-      user-select:none;
-    }
-    .offer h3{
-      margin:0 0 .25rem;
-      font-size: 1.1rem;
-      letter-spacing:-0.02em;
-    }
-    .offer p{
-      margin:.25rem 0 0;
-      color:#1f2937;
-      font-weight:700;
-      line-height:1.45;
-    }
-    .offer ul{
-      margin:.65rem 0 0;
-      padding-left: 1.05rem;
-      color:#1f2937;
-      font-weight:750;
-      line-height:1.5;
-    }
-
-    /* Pricing */
-    .pricing{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: .85rem;
-      margin-top: .2rem;
-    }
-    .priceCard{
-      border:1px solid var(--border);
-      background: var(--card);
-      border-radius: 16px;
-      padding: 1rem 1rem .95rem;
-      cursor:pointer;
-      user-select:none;
-    }
-    .tier{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:.75rem;
-      flex-wrap:wrap;
-      font-weight:950;
-      letter-spacing:-0.02em;
-    }
-    .badge{
-      border:1.5px solid rgba(18,18,18,0.65);
-      border-radius: 999px;
-      padding:.25rem .55rem;
-      font-weight:950;
-      font-size:.82rem;
-      background: rgba(245,158,11,0.18);
-    }
-    .price{
-      margin:.55rem 0 .25rem;
-      font-size: 1.65rem;
-      font-weight:1000;
-      letter-spacing:-0.04em;
-    }
-    .price small{
-      font-size: .95rem;
-      font-weight:850;
-      color: var(--muted);
-      letter-spacing:-0.01em;
-    }
-    .freePop{
-      display:inline-block;
-      margin-left:.35rem;
-      padding:.18rem .45rem;
-      border-radius: 999px;
-      border:1.5px solid rgba(18,18,18,0.65);
-      background: rgba(22,163,74,0.14);
-      font-weight:1000;
-      white-space:nowrap;
-    }
-    .priceCard p{
-      margin:.25rem 0 0;
-      color:#1f2937;
-      font-weight:700;
-      line-height:1.45;
-    }
-    .priceCard ul{
-      margin:.65rem 0 0;
-      padding-left: 1.05rem;
-      color:#1f2937;
-      font-weight:750;
-      line-height:1.5;
-    }
-    .priceCtas{
-      margin-top:.85rem;
-      display:flex;
-      gap:.65rem;
-      flex-wrap:wrap;
-      align-items:center;
+      font-weight: 760;
     }
 
     /* Contact */
     .contactBox{
       max-width: var(--content-width);
     }
+    .contactBox p{
+      margin:0;
+      color:#111827;
+      font-weight: 760;
+      line-height:1.6;
+    }
 
     /* Footer */
     footer{
-      margin-top: 2.25rem;
-      padding-top: 1.15rem;
+      margin-top: 2.3rem;
       border-top: 1px solid var(--border);
+      padding-top: 1.15rem;
       display:flex;
+      align-items:flex-start;
       justify-content:space-between;
       gap:1rem;
       flex-wrap:wrap;
+    }
+    .footLeft{
+      display:flex;
+      flex-direction:column;
+      gap:.25rem;
       color: var(--muted);
-      font-weight:750;
+      font-weight: 750;
+    }
+    .footLeft strong{ color: var(--ink); }
+    .footLinks{
+      display:flex;
+      gap:.6rem;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .footLinks a{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.75);
+      padding: .48rem .7rem;
+      border-radius: 999px;
+      font-weight: 850;
+      cursor:pointer;
     }
 
     /* Responsive */
     @media (max-width: 980px){
       .hero{ grid-template-columns: 1fr; }
       .grid4{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .offerGrid{ grid-template-columns: 1fr; }
-      .pricing{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns: 1fr; }
     }
     @media (max-width: 560px){
       .wrap{ padding-left: 1rem; padding-right: 1rem; }
+      .miniGrid{ grid-template-columns: 1fr; }
       .grid4{ grid-template-columns: 1fr; }
     }
 
-    /* Click-color cycle (now subtle: soft background tints) */
-    .cc1{ background: rgba(37,99,235,0.08) !important; }
-    .cc2{ background: rgba(220,38,38,0.08) !important; }
-    .cc3{ background: rgba(22,163,74,0.08) !important; }
-    .cc4{ background: rgba(245,158,11,0.10) !important; }
-    .cc5{ background: rgba(124,58,237,0.08) !important; }
-    .cc6{ background: rgba(17,17,17,0.06) !important; }
+    /* Click-color cycle: subtle tints for panels/cards */
+    .cc1{ background: rgba(37,99,235,0.07) !important; }
+    .cc2{ background: rgba(220,38,38,0.07) !important; }
+    .cc3{ background: rgba(22,163,74,0.07) !important; }
+    .cc4{ background: rgba(245,158,11,0.08) !important; }
+    .cc5{ background: rgba(124,58,237,0.07) !important; }
+    .cc6{ background: rgba(17,24,39,0.05) !important; }
 
-    /* Primary button cycles more boldly (so “fun” still shows up where it matters) */
+    /* Buttons can cycle more boldly (keeps the “fun” visible) */
     .btn.cc1{ background: var(--a1) !important; color:#fff !important; }
     .btn.cc2{ background: var(--a2) !important; color:#fff !important; }
     .btn.cc3{ background: var(--a3) !important; color:#fff !important; }
-    .btn.cc4{ background: var(--a4) !important; color:#111 !important; }
+    .btn.cc4{ background: var(--a4) !important; color:#111827 !important; }
     .btn.cc5{ background: var(--a5) !important; color:#fff !important; }
     .btn.cc6{ background: var(--a6) !important; color:#fff !important; }
   </style>
@@ -476,209 +452,215 @@
 
 <body>
   <div class="wrap" id="top">
-    <header class="topbar">
+    <header>
       <div class="brand">
-        <div class="mark click-color" title="Click for a subtle accent">
-          <span>Q</span>
-        </div>
-        <div class="brandname">
+        <div class="mark click-color" title="Click for a subtle accent"><span>Q</span></div>
+        <div class="brandText">
           <div class="name">Quontora</div>
-          <div class="tag">AIVI — AI Visibility Index</div>
+          <div class="sub">Flagship product: <strong>AIVI</strong> — AI Visibility Index</div>
         </div>
       </div>
-      <nav class="nav" aria-label="Primary">
+
+      <nav aria-label="Primary">
         <a class="click-color" href="#aivi">AIVI</a>
-        <a class="click-color" href="#offerings">Offerings</a>
-        <a class="click-color" href="#pricing">Pricing</a>
+        <a class="click-color" href="#offerings">Services</a>
+        <a class="click-color" href="#how">How it works</a>
         <a class="click-color" href="#contact">Contact</a>
       </nav>
     </header>
 
+    <!-- HERO -->
     <section class="hero" aria-label="Hero">
       <div class="panel click-color">
         <h1>AI already has an opinion about your brand.</h1>
-        <p>Quontora built <strong>AIVI</strong> (the <strong>AI Visibility Index</strong>) to show you what AI systems are likely understanding — and what’s shaping that perception.</p>
-        <p class="subline">AIVI is not a promise of rankings. It’s a measurement of interpretability: clarity, structure, trust, and content alignment.</p>
+        <p class="lede">
+          Quontora helps organizations understand how AI systems interpret their website and positioning — and how to become
+          <strong>clearly understood</strong> and <strong>confidently recommendable</strong>.
+          <span class="muted">AIVI is our measurement layer.</span>
+        </p>
 
         <div class="ctaRow">
-          <a class="btn primary click-color" href="https://aivindex.io" target="_blank" rel="noopener">
-            Open AIVI <small>→</small>
-          </a>
-          <a class="btn click-color" href="#pricing">
-            Request access <small>↓</small>
-          </a>
+          <a class="btn primary click-color" href="https://aivindex.io" target="_blank" rel="noopener">Open AIVI <small>→</small></a>
+          <a class="btn secondary click-color" href="#contact">Talk to Quontora <small>↓</small></a>
         </div>
 
-        <div class="breaker click-color" style="margin-top:1.05rem;">
+        <div class="proof click-color">
           <strong>This is not SEO. This is AI perception.</strong>
           <span>If AI can’t clearly understand you, it can’t confidently recommend you.</span>
         </div>
       </div>
 
-      <aside class="panel signalBox" aria-label="Signal summary">
-        <div class="signalTitle">
+      <aside class="panel click-color" aria-label="Summary">
+        <div class="summaryHead">
           <div>
-            <h3>What you get from AIVI</h3>
-            <p>One index. Four layers. Practical findings.</p>
+            <h2>What Quontora does</h2>
+            <p>We combine a measurement index (AIVI) with advisory work to improve real-world interpretability.</p>
           </div>
         </div>
 
-        <div class="accentRow">
-          <div class="accentCard click-color" role="button" tabindex="0">
-            <div class="k"><span class="dot"></span>Fast readout</div>
-            <p class="t">A shareable signal of how AI is likely interpreting your site.</p>
+        <div class="miniGrid">
+          <div class="mini click-color" role="button" tabindex="0">
+            <div class="k"><span class="dot"></span>AIVI measurement</div>
+            <p>One index that summarizes how AI likely interprets your site.</p>
           </div>
-          <div class="accentCard click-color" role="button" tabindex="0">
-            <div class="k"><span class="dot" style="background:var(--a2)"></span>Clear priorities</div>
-            <p class="t">Findings ranked by impact, so teams know where to start.</p>
+          <div class="mini click-color" role="button" tabindex="0">
+            <div class="k"><span class="dot" style="background:var(--a2)"></span>Signal priorities</div>
+            <p>Findings ranked by what most changes AI confidence.</p>
           </div>
-          <div class="accentCard click-color" role="button" tabindex="0">
-            <div class="k"><span class="dot" style="background:var(--a3)"></span>Explainable</div>
-            <p class="t">Evidence-style notes: what was observed and why it matters.</p>
+          <div class="mini click-color" role="button" tabindex="0">
+            <div class="k"><span class="dot" style="background:var(--a3)"></span>Execution help</div>
+            <p>Consulting that turns findings into shipped improvements.</p>
           </div>
-          <div class="accentCard click-color" role="button" tabindex="0">
-            <div class="k"><span class="dot" style="background:var(--a4)"></span>Actionable</div>
-            <p class="t">Opportunities phrased as changes you can ship.</p>
+          <div class="mini click-color" role="button" tabindex="0">
+            <div class="k"><span class="dot" style="background:var(--a4)"></span>Clear positioning</div>
+            <p>Messaging + structure upgrades that reduce ambiguity.</p>
           </div>
         </div>
       </aside>
     </section>
 
-    <section class="section" id="aivi" aria-label="AIVI">
+    <!-- AIVI -->
+    <section class="block" id="aivi" aria-label="AIVI">
       <div class="sectionHead">
-        <h2>What AIVI measures</h2>
-        <p>AIVI converts “AI understanding” into a single index, backed by four layers you can improve.</p>
+        <h2>AIVI — AI Visibility Index</h2>
+        <p>AIVI is Quontora’s index for measuring AI interpretability — a single reading backed by four layers.</p>
       </div>
 
-      <div class="grid4" role="list" aria-label="Four AIVI layers">
-        <div class="card click-color" role="listitem">
-          <div class="kicker"><span class="dot"></span>Structure & Crawlability</div>
-          <p>Whether AI agents can access, parse, and traverse your site without friction.</p>
-        </div>
-        <div class="card click-color" role="listitem">
-          <div class="kicker"><span class="dot" style="background:var(--a2)"></span>Authority & Trust</div>
-          <p>Signals that help AI treat you as real and reliable: identity, provenance, consistency.</p>
-        </div>
-        <div class="card click-color" role="listitem">
-          <div class="kicker"><span class="dot" style="background:var(--a3)"></span>Clarity & Language</div>
-          <p>How clearly AI can summarize what you do — without guessing or hallucinating.</p>
-        </div>
-        <div class="card click-color" role="listitem">
-          <div class="kicker"><span class="dot" style="background:var(--a4)"></span>Content–AI Alignment</div>
-          <p>How well your content answers intent with reusable structure (entities, coverage, support).</p>
-        </div>
-      </div>
-
-      <div class="note click-color" role="button" tabindex="0" aria-label="Index note">
-        Each layer contributes to your AI Visibility Index reading — a single, interpretable signal of how AI systems perceive your presence.
-        <span>Designed to be explainable enough to act on, without turning your site into a robot brochure.</span>
-      </div>
-    </section>
-
-    <section class="section" id="offerings" aria-label="Offerings">
-      <div class="sectionHead">
-        <h2>Offerings</h2>
-        <p>Choose a quick scan for clarity — or a private deep report for implementation-ready guidance.</p>
-      </div>
-
-      <div class="offerGrid">
-        <div class="offer click-color">
-          <h3>AIVI Scan (Public Report)</h3>
-          <p>A fast, credible readout you can share internally: what AI is likely “seeing,” and what’s shaping that view.</p>
-          <ul>
-            <li>AIVI index + layer breakdown</li>
-            <li>Top findings ranked by impact</li>
-            <li>High-signal opportunities (quick wins)</li>
-            <li>Evidence-style notes (why it matters)</li>
-          </ul>
+      <div class="panel click-color" style="padding:1.05rem 1.1rem;">
+        <div style="display:flex; gap:1rem; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+          <p style="margin:0; max-width: 78ch; color:#111827; font-weight:750; line-height:1.55;">
+            Use AIVI to see what’s helping (or limiting) AI confidence in your presence — without drowning in audit noise.
+          </p>
+          <div style="display:flex; gap:.6rem; flex-wrap:wrap;">
+            <a class="btn primary click-color" href="https://aivindex.io" target="_blank" rel="noopener">Go to AIVI Index <small>→</small></a>
+            <a class="btn click-color" href="#contact">Request access <small>↓</small></a>
+          </div>
         </div>
 
-        <div class="offer click-color">
-          <h3>AIVI Deep Report (Private)</h3>
-          <p>For teams that want to move from insight to implementation — with clear, structured next steps.</p>
-          <ul>
-            <li>Granular findings + implementation guidance</li>
-            <li>Prioritized recommendations (effort vs impact)</li>
-            <li>Technical + content alignment roadmap</li>
-            <li>Clarity upgrades for AI summaries</li>
-          </ul>
+        <div style="height:.9rem;"></div>
+
+        <div class="grid4" role="list" aria-label="AIVI layers">
+          <div class="card click-color" role="listitem">
+            <div class="title"><span class="dot"></span>Structure & Crawlability</div>
+            <p>Can AI agents access, parse, and traverse your site without friction?</p>
+          </div>
+          <div class="card click-color" role="listitem">
+            <div class="title"><span class="dot" style="background:var(--a2)"></span>Authority & Trust</div>
+            <p>Signals that reduce doubt: identity, provenance, and consistency.</p>
+          </div>
+          <div class="card click-color" role="listitem">
+            <div class="title"><span class="dot" style="background:var(--a3)"></span>Clarity & Language</div>
+            <p>How clearly AI can summarize what you do — without guessing.</p>
+          </div>
+          <div class="card click-color" role="listitem">
+            <div class="title"><span class="dot" style="background:var(--a4)"></span>Content–AI Alignment</div>
+            <p>How well content answers intent with reusable structure and coverage.</p>
+          </div>
+        </div>
+
+        <div class="note click-color" role="button" tabindex="0">
+          AIVI is an observed index of interpretability — a measurement of how AI systems perceive your presence.
+          <span>It’s designed to guide what to improve next, not to promise rankings or outcomes.</span>
         </div>
       </div>
     </section>
 
-    <section class="section" id="pricing" aria-label="Pricing">
+    <!-- OFFERINGS -->
+    <section class="block" id="offerings" aria-label="Offerings">
       <div class="sectionHead">
-        <h2>Pricing</h2>
-        <p>Two levels by design. Simple to adopt. Serious when you need depth.</p>
+        <h2>Services</h2>
+        <p>Quontora is the umbrella. AIVI is the flagship tool. We also provide consulting to execute improvements.</p>
       </div>
 
-      <div class="pricing">
-        <div class="priceCard click-color">
-          <div class="tier">
-            <span>Public AIVI Scan</span>
-            <span class="badge click-color">Early access</span>
-          </div>
-          <div class="price">
-            $249 <small>/ domain <span class="freePop click-color">FREE during early access</span></small>
-          </div>
-          <p>Get a shareable readout of how AI systems interpret your site — and what’s limiting confidence.</p>
+      <div class="grid3" role="list" aria-label="Service cards">
+        <div class="card click-color" role="listitem">
+          <div class="title"><span class="dot"></span>AIVI Scan + Findings</div>
+          <p>A measurement-driven readout of your current AI interpretability, with prioritized findings.</p>
           <ul>
-            <li>Index + four-layer breakdown</li>
-            <li>Top findings & quick wins</li>
-            <li>Clear language, minimal jargon</li>
+            <li>Index + layer breakdown</li>
+            <li>Top limiting signals</li>
+            <li>High-impact opportunities</li>
           </ul>
-          <div class="priceCtas">
-            <a class="btn primary click-color" href="https://aivindex.io" target="_blank" rel="noopener">Run AIVI</a>
-            <a class="btn click-color" href="#contact">Get access</a>
-          </div>
         </div>
 
-        <div class="priceCard click-color">
-          <div class="tier">
-            <span>Private Deep Report</span>
-            <span class="badge click-color" style="background: rgba(37,99,235,0.10);">By request</span>
-          </div>
-          <div class="price">
-            Custom <small>scope-based</small>
-          </div>
-          <p>Implementation-ready guidance for teams shipping changes across content, structure, and trust signals.</p>
+        <div class="card click-color" role="listitem">
+          <div class="title"><span class="dot" style="background:var(--a2)"></span>AI Consulting</div>
+          <p>Advisory support to turn findings into shipped changes across site, content, and positioning.</p>
           <ul>
-            <li>Granular findings + next steps</li>
+            <li>Implementation guidance</li>
             <li>Prioritized roadmap</li>
-            <li>Clarity upgrades for AI summaries</li>
-            <li>Optional ongoing advisory</li>
+            <li>Stakeholder-ready language</li>
           </ul>
-          <div class="priceCtas">
-            <a class="btn primary click-color" href="#contact">Request a deep report</a>
-            <a class="btn click-color" href="#aivi">What’s included</a>
-          </div>
+        </div>
+
+        <div class="card click-color" role="listitem">
+          <div class="title"><span class="dot" style="background:var(--a4)"></span>Positioning & Messaging</div>
+          <p>Make what you do compressible into a confident AI summary — and obvious to humans.</p>
+          <ul>
+            <li>Homepage narrative upgrades</li>
+            <li>Service taxonomy clarity</li>
+            <li>Entity + trust cues</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <section class="section" id="contact" aria-label="Contact">
+    <!-- HOW -->
+    <section class="block" id="how" aria-label="How it works">
+      <div class="sectionHead">
+        <h2>How it works</h2>
+        <p>A simple flow designed for busy teams: measure → prioritize → implement.</p>
+      </div>
+
+      <div class="grid3" role="list" aria-label="How it works steps">
+        <div class="card click-color" role="listitem">
+          <div class="title"><span class="dot"></span>1) Measure</div>
+          <p>Run AIVI to get a clean baseline of interpretability across the four layers.</p>
+        </div>
+        <div class="card click-color" role="listitem">
+          <div class="title"><span class="dot" style="background:var(--a3)"></span>2) Prioritize</div>
+          <p>Focus on the few signals that most change AI confidence — not a long checklist.</p>
+        </div>
+        <div class="card click-color" role="listitem">
+          <div class="title"><span class="dot" style="background:var(--a5)"></span>3) Improve</div>
+          <p>Ship changes with Quontora support (or your team). Re-run to validate movement.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="block" id="contact" aria-label="Contact">
       <div class="sectionHead">
         <h2>Contact</h2>
-        <p>For access to AIVI, or to request a private deep report, reach out.</p>
+        <p>If you want access to AIVI or want Quontora to guide improvements, reach out.</p>
       </div>
 
       <div class="panel contactBox click-color">
-        <p style="margin:0; color:#1f2937; font-weight:750; line-height:1.55;">
+        <p>
           Email <strong>hello@quontora.com</strong><br/>
           Include your domain + what outcome you want (e.g., “be clearly recommendable for X”).<br/>
           We’ll respond with access and next steps.
         </p>
 
-        <div class="ctaRow" style="margin-top:.9rem;">
-          <a class="btn primary click-color" href="mailto:hello@quontora.com?subject=AIVI%20Access%20Request">Email Quontora</a>
-          <a class="btn click-color" href="https://aivindex.io" target="_blank" rel="noopener">Open AIVI</a>
+        <div class="ctaRow" style="margin-top: .95rem;">
+          <a class="btn primary click-color" href="mailto:hello@quontora.com?subject=Quontora%20%E2%80%94%20AIVI%20Access%20%2F%20Consulting">Email Quontora</a>
+          <a class="btn click-color" href="https://aivindex.io" target="_blank" rel="noopener">Open AIVI <small>→</small></a>
         </div>
       </div>
     </section>
 
-    <footer>
-      <div>© 2025 Quontora • AIVI (AI Visibility Index)</div>
-      <div><a class="click-color" href="#top">Back to top</a></div>
+    <!-- FOOTER -->
+    <footer aria-label="Footer">
+      <div class="footLeft">
+        <div><strong>Quontora</strong> — AIVI (AI Visibility Index) & AI Consulting</div>
+        <div>© 2025 Quontora • hello@quontora.com</div>
+      </div>
+      <div class="footLinks">
+        <a class="click-color" href="#aivi">AIVI</a>
+        <a class="click-color" href="#offerings">Services</a>
+        <a class="click-color" href="#contact">Contact</a>
+        <a class="click-color" href="#top">Back to top</a>
+      </div>
     </footer>
   </div>
 
