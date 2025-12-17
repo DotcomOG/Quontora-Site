@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <!--
   Quontora.com Index (Umbrella Site)
-  Version: v2025.12.17-2
+  Built by: ChatGPT
+  Version: v2025.12.17-3
   Last Updated: 2025-12-17 (America/New_York)
 
-  Notes:
-  - Hero word animation: NO ghost words; only the active word is visible.
-  - Cylinder-turn effect: 3D flip between two faces (current + next).
-  - Layout change: remove right-side aside; hero is full-width single column.
-  - Added: full-width 3-column section for the former “AIVI in one minute” content.
-  - Hero pills: spread evenly across the row (desktop), responsive stack on small screens.
-  - FIX: Back-to-top button aligned to the right edge of the main column (.wrap), not viewport.
+  Change log (only):
+  - Rotating words updated + order updated.
+  - “BUSINESS” → “BRAND”.
+  - Headline constrained to exactly 2 lines (never 3).
+  - Removed the two “Get Started” buttons (top nav + hero pill).
 -->
 <html lang="en">
 <head>
@@ -187,17 +186,6 @@
       background: #fff;
       box-shadow: 6px 6px 0 var(--rand-red);
     }
-    .btn-outline {
-      background: transparent;
-      border-color: var(--rand-black);
-      color: var(--rand-black);
-    }
-    .btn-outline:hover {
-      background: var(--rand-blue);
-      color: #fff;
-      border-color: var(--rand-blue);
-      box-shadow: 6px 6px 0 var(--rand-black);
-    }
 
     /* HERO */
     .hero { padding: 2.25rem 0 2.5rem; }
@@ -212,26 +200,18 @@
 
     .hero-question { padding: 0.75rem 0 0.25rem; }
 
-    /* (hero-kicker removed from markup; keeping CSS harmless) */
-    .hero-kicker {
-      display: inline-block;
-      font-weight: 900;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      background: rgba(49,130,206,0.10);
-      border: 2px solid var(--rand-black);
-      padding: 0.35rem 0.75rem;
-      margin-bottom: 1rem;
-    }
-
+    /* Force exactly two lines: line1 + line2 (never 3) */
     .hero-h {
-      font-size: 3rem;
+      font-size: clamp(2.05rem, 4.1vw, 3rem);
       line-height: 1.02;
       font-weight: 900;
       letter-spacing: -1.5px;
       text-transform: uppercase;
       color: var(--rand-black);
+    }
+    .hero-line2 {
+      display: block;
+      white-space: nowrap;
     }
 
     /* ✅ FIXED ROTATOR: only 2 faces exist, others never render */
@@ -240,11 +220,9 @@
       position: relative;
       vertical-align: baseline;
       height: 1em;
-      overflow: hidden; /* hard clip */
-      width: 11.6em;    /* stable to avoid layout shift (fits “CLEAR AND FOCUSED”) */
+      overflow: hidden;
+      width: 13.2ch;     /* fits “AUTHORITATIVE” comfortably */
       margin-left: 0.18em;
-
-      /* cylinder feel */
       perspective: 900px;
       perspective-origin: 50% 50%;
       transform-style: preserve-3d;
@@ -261,12 +239,12 @@
       left: 0;
       top: 0;
       height: 1em;
-      line-height: 1em; /* inherits font & kerning via parent */
+      line-height: 1em;
       white-space: nowrap;
       backface-visibility: hidden;
-      opacity: 0; /* ✅ hidden by default */
+      opacity: 0;
       transform-origin: 50% 50%;
-      color: var(--rand-red); /* ✅ rotating word in red */
+      color: var(--rand-red); /* rotating words in red */
     }
 
     .rotator-current {
@@ -279,7 +257,6 @@
       transform: rotateX(90deg) translateZ(0);
     }
 
-    /* Animate flip: current goes “down” and away; next comes into line at 100% opacity */
     .rotator.animating .rotator-current {
       animation: flipOut 520ms cubic-bezier(.2,.75,.2,1) forwards;
     }
@@ -312,10 +289,10 @@
       color: var(--rand-black);
     }
 
-    /* HERO NAV PILLS — evenly spread */
+    /* HERO NAV PILLS — evenly spread (3 items now) */
     .quick-links {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 0.75rem;
       margin-top: 1.5rem;
       width: 100%;
@@ -334,7 +311,7 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       white-space: nowrap;
-      text-align: center; /* ✅ */
+      text-align: center;
       width: 100%;
     }
     .pill:hover {
@@ -342,10 +319,8 @@
       background: var(--rand-yellow);
     }
 
-    /* NEW: full-width 3-column section (former right-side content) */
-    .aivi-one-minute {
-      padding: 0 0 2.6rem;
-    }
+    /* full-width 3-column section */
+    .aivi-one-minute { padding: 0 0 2.6rem; }
 
     .aivi-cols {
       display: grid;
@@ -354,7 +329,6 @@
       margin-top: 1.25rem;
     }
 
-    /* Reuse mini-item styles for the new columns */
     .mini-item {
       border: 2px solid var(--rand-black);
       padding: 0.95rem 1rem;
@@ -613,7 +587,6 @@
     .back-to-top {
       position: fixed;
       bottom: 20px;
-      /* ✅ ONLY CHANGE: align to right edge of the main column (.wrap) */
       right: max(20px, calc((100vw - (var(--content-width) + (2 * var(--pad-h)))) / 2 + var(--pad-h)));
       width: 60px;
       height: 60px;
@@ -670,20 +643,18 @@
       .how-grid { grid-template-columns: 1fr; }
       .glance-grid { grid-template-columns: 1fr; }
       .serve-grid { grid-template-columns: 1fr; }
-      .hero-h { font-size: 2.5rem; }
-      .rotator { width: 12.2em; }
+      .rotator { width: 13.5ch; }
       .aivi-cols { grid-template-columns: 1fr; }
-      .quick-links { grid-template-columns: repeat(2, 1fr); max-width: 40rem; }
+      .quick-links { grid-template-columns: 1fr; max-width: 40rem; }
+      .hero-line2 { white-space: nowrap; }
     }
 
     @media (max-width: 520px) {
       h1.logo { font-size: 3rem; }
-      .hero-h { font-size: 2.1rem; }
-      .rotator { width: 12.6em; }
       .btn { width: 100%; text-align: center; }
       .cta-buttons { flex-direction: column; }
       .btn-cta { width: 100%; text-align: center; }
-      .quick-links { grid-template-columns: 1fr; max-width: 100%; }
+      .hero-line2 { white-space: nowrap; }
     }
   </style>
 </head>
@@ -704,7 +675,6 @@
 
         <nav class="top-cta" aria-label="Primary actions">
           <a class="btn btn-primary" href="https://aivindex.io">Open AIVI</a>
-          <a class="btn btn-outline" href="#contact">Get Started</a>
         </nav>
       </div>
     </header>
@@ -713,13 +683,15 @@
       <section class="hero" aria-label="Hero">
         <div class="hero-grid">
           <div class="hero-question">
-            <h2 class="hero-h">
-              DOES AI DESCRIBE YOUR<br />
-              BUSINESS AS
-              <span class="rotator" id="rotator" aria-label="Rotating descriptor">
-                <span class="rotator-stage">
-                  <span class="rotator-face rotator-current" id="rotCurrent">credible</span>
-                  <span class="rotator-face rotator-next" id="rotNext"></span>
+            <h2 class="hero-h" aria-label="Hero headline">
+              DOES AI DESCRIBE YOUR
+              <span class="hero-line2">
+                BRAND AS
+                <span class="rotator" id="rotator" aria-label="Rotating descriptor">
+                  <span class="rotator-stage">
+                    <span class="rotator-face rotator-current" id="rotCurrent">generic</span>
+                    <span class="rotator-face rotator-next" id="rotNext"></span>
+                  </span>
                 </span>
               </span>
             </h2>
@@ -733,13 +705,11 @@
               <a class="pill" href="#glance">Quontora at a Glance</a>
               <a class="pill" href="#offerings">Offerings</a>
               <a class="pill" href="#how">How We Work</a>
-              <a class="pill" href="#contact">Get Started</a>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- New full-width section from former right-side content -->
       <section class="aivi-one-minute" aria-label="AIVI one minute content">
         <div class="aivi-cols">
           <div class="mini-item">
@@ -888,12 +858,10 @@
   </footer>
 
   <script>
-    // Footer date
     const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const now = new Date();
     document.getElementById('update-date').textContent = `${months[now.getMonth()]} ${now.getFullYear()}`;
 
-    // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
@@ -906,7 +874,6 @@
       });
     });
 
-    // Show/hide back to top button
     const backToTopButton = document.getElementById('backToTop');
     window.addEventListener('scroll', function() {
       if (window.pageYOffset > 300) backToTopButton.classList.add('show');
@@ -918,11 +885,14 @@
       const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       const words = [
-        'credible',
-        'clear and focused',
-        'authoritative',
         'generic',
-        'confusing'
+        'unclear',
+        'confusing',
+        'replaceable',
+        'credible',
+        'trustworthy',
+        'authoritative',
+        'distinct'
       ];
 
       const rotator = document.getElementById('rotator');
@@ -968,6 +938,6 @@
     })();
   </script>
 
-  <!-- Version: v2025.12.17-2 -->
+  <!-- Built by: ChatGPT | Version: v2025.12.17-3 -->
 </body>
 </html>
