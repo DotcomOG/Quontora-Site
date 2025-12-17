@@ -1,981 +1,350 @@
 <!DOCTYPE html>
 <!--
-  Quontora.com Index (Umbrella Site)
-  Version: v2025.12.16-2
-  Last Updated: 2025-12-16 (America/New_York)
+  Quontora — Index
+  Version: v2025.12.17-1
+  Last Updated: 2025-12-17 (America/New_York)
 
-  Notes:
-  - Hero word animation fixed: NO ghost words; only the active word is visible.
-  - Cylinder-turn effect implemented as a 3D flip between two faces (current + next).
-  - Keeps font + kerning by inheriting all typography from the hero headline.
+  Change log:
+  - Moved the vertical “AIVI IN ONE MIN” label into the top unit, directly under the navigation
+  - Rotating word color set to red
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quontora — The Company Behind AIVI</title>
-  <style>
-    :root {
-      --max-width: 1200px;
-      --content-width: 860px;
-      --pad-v: 3vh;
-      --pad-h: 2rem;
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Quontora — AI Visibility Index</title>
 
-      /* Paul Rand inspired color palette */
+  <style>
+    :root{
+      --max-width: 1100px;
+      --pad-h: 24px;
+      --pad-v: 22px;
+
+      --bg: #ffffff;
+      --ink: #111111;
+      --muted: #5a5a5a;
+      --border: #e7e7e7;
+
       --rand-red: #E53E3E;
       --rand-yellow: #F6E05E;
       --rand-blue: #3182CE;
-      --rand-green: #48BB78;
-      --rand-orange: #ED8936;
-      --rand-purple: #805AD5;
       --rand-black: #1A202C;
-      --rand-white: #FFFFFF;
-      --rand-gray: #E2E8F0;
-
-      --text-dark: #1A202C;
-      --text-medium: #4a5568;
-      --text-light: #718096;
-      --border: #CBD5E0;
-      --bg-light: #F7FAFC;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Helvetica Neue', Helvetica, sans-serif;
-      background: #fff;
-      color: var(--rand-black);
-      line-height: 1.6;
-      scroll-behavior: smooth;
-      position: relative;
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    body{
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.4;
       overflow-x: hidden;
     }
 
-    /* Geometric background elements */
-    body::before {
-      content: '';
-      position: fixed;
-      top: -120px;
-      right: -120px;
-      width: 340px;
-      height: 340px;
-      background: var(--rand-yellow);
-      border-radius: 50%;
-      opacity: 0.10;
-      z-index: -1;
-    }
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: -170px;
-      left: -170px;
-      width: 460px;
-      height: 460px;
-      background: var(--rand-blue);
-      transform: rotate(45deg);
-      opacity: 0.08;
-      z-index: -1;
-    }
-
-    a { color: inherit; }
-
-    .wrap {
-      max-width: var(--content-width);
+    .wrap{
+      max-width: var(--max-width);
       margin: 0 auto;
       padding: 0 var(--pad-h);
     }
 
-    header { padding: var(--pad-v) 0 0; }
-
-    .topbar {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .logo-container {
+    /* TOP UNIT */
+    header{
       position: relative;
-      display: inline-block;
-    }
-    .logo-container::before {
-      content: '';
-      position: absolute;
-      top: -10px;
-      left: -20px;
-      width: 100px;
-      height: 100px;
-      background: var(--rand-red);
-      border-radius: 50%;
-      opacity: 0.15;
-      z-index: -1;
+      padding-top: 22px;
     }
 
-    h1.logo {
-      font-size: 4rem;
+    .topUnit{
+      position: relative;
+      border: 2px solid var(--rand-black);
+      padding: 18px;
+      background: #fff;
+    }
+
+    .navRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--rand-black);
+    }
+
+    .brand{
+      display:flex;
+      align-items:flex-end;
+      gap: 10px;
+    }
+
+    .brand h1{
+      font-size: 40px;
       font-weight: 900;
+      letter-spacing: -1.5px;
       line-height: 1;
-      letter-spacing: -2px;
-      margin: 0;
-      display: inline-block;
-      position: relative;
     }
-    h1.logo::after {
-      content: '';
-      position: absolute;
-      top: 10px;
-      right: -25px;
-      width: 20px;
-      height: 20px;
+
+    .brandDot{
+      width: 14px;
+      height: 14px;
       background: var(--rand-yellow);
-      border-radius: 50%;
+      border: 2px solid var(--rand-black);
+      display:inline-block;
+      transform: translateY(-8px);
     }
 
-    .tagline {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--rand-blue);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      white-space: nowrap;
-      margin-top: 0.35rem;
-    }
-    .tagline .bar {
-      display: inline-block;
-      width: 26px;
-      height: 3px;
-      background: var(--rand-red);
-      transform: translateY(1px);
-    }
-
-    .top-cta {
-      display: flex;
-      gap: 0.75rem;
+    nav{
+      display:flex;
+      gap: 14px;
       flex-wrap: wrap;
       justify-content: flex-end;
     }
 
-    .btn {
-      display: inline-block;
-      text-decoration: none;
+    nav a{
+      color: var(--ink);
+      text-decoration:none;
+      font-weight: 700;
+      border-bottom: 2px solid transparent;
+      padding: 2px 0;
+    }
+    nav a:hover{ border-bottom-color: var(--rand-red); }
+
+    /* VERTICAL LABEL — moved under navigation inside top unit */
+    .topUnderNavRow{
+      position: relative;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-end;
+      padding-top: 10px;
+      min-height: 74px; /* gives the label a “home” */
+    }
+
+    .aiviOneMin{
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
       font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 0.75rem 1.25rem;
-      border: 3px solid var(--rand-black);
-      background: white;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      border-radius: 0;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-    .btn:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--rand-black);
-    }
-    .btn-primary {
-      background: var(--rand-yellow);
-      border-color: var(--rand-yellow);
+      letter-spacing: 0.12em;
+      font-size: 12px;
       color: var(--rand-black);
-    }
-    .btn-primary:hover {
+      padding: 10px 8px;
+      border: 2px solid var(--rand-black);
       background: #fff;
-      box-shadow: 6px 6px 0 var(--rand-red);
-    }
-    .btn-outline {
-      background: transparent;
-      border-color: var(--rand-black);
-      color: var(--rand-black);
-    }
-    .btn-outline:hover {
-      background: var(--rand-blue);
-      color: #fff;
-      border-color: var(--rand-blue);
-      box-shadow: 6px 6px 0 var(--rand-black);
+      box-shadow: 6px 6px 0 var(--rand-yellow);
+      user-select: none;
     }
 
     /* HERO */
-    .hero { padding: 2.25rem 0 2.5rem; }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.35fr 0.65fr;
-      gap: 2rem;
-      align-items: start;
+    .hero{
+      padding: 18px 0 6px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
     }
 
-    .hero-question { padding: 0.75rem 0 0.25rem; }
-
-    .hero-kicker {
-      display: inline-block;
-      font-weight: 900;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      background: rgba(49,130,206,0.10);
-      border: 2px solid var(--rand-black);
-      padding: 0.35rem 0.75rem;
-      margin-bottom: 1rem;
-    }
-
-    .hero-h {
-      font-size: 3rem;
-      line-height: 1.02;
-      font-weight: 900;
-      letter-spacing: -1.5px;
-      text-transform: uppercase;
-      color: var(--rand-black);
-    }
-
-    /* ✅ FIXED ROTATOR: only 2 faces exist, others never render */
-    .rotator {
-      display: inline-block;
-      position: relative;
-      vertical-align: baseline;
-      height: 1em;
-      overflow: hidden; /* hard clip */
-      width: 11.6em;    /* stable to avoid layout shift (fits “CLEAR AND FOCUSED”) */
-      margin-left: 0.18em;
-
-      /* cylinder feel */
-      perspective: 900px;
-      perspective-origin: 50% 50%;
-      transform-style: preserve-3d;
-    }
-
-    .rotator-stage {
-      position: relative;
-      height: 1em;
-      transform-style: preserve-3d;
-    }
-
-    .rotator-face {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 1em;
-      line-height: 1em; /* inherits font & kerning via parent */
-      white-space: nowrap;
-      backface-visibility: hidden;
-      opacity: 0; /* ✅ hidden by default */
-      transform-origin: 50% 50%;
-    }
-
-    .rotator-current {
-      opacity: 1;
-      transform: rotateX(0deg) translateZ(0);
-    }
-
-    .rotator-next {
-      opacity: 0;
-      transform: rotateX(90deg) translateZ(0);
-    }
-
-    /* Animate flip: current goes “down” and away; next comes into line at 100% opacity */
-    .rotator.animating .rotator-current {
-      animation: flipOut 520ms cubic-bezier(.2,.75,.2,1) forwards;
-    }
-    .rotator.animating .rotator-next {
-      animation: flipIn 520ms cubic-bezier(.2,.75,.2,1) forwards;
-    }
-
-    @keyframes flipOut {
-      0%   { opacity: 1; transform: rotateX(0deg); }
-      55%  { opacity: 0.3; transform: rotateX(-70deg); }
-      100% { opacity: 0; transform: rotateX(-90deg); }
-    }
-
-    @keyframes flipIn {
-      0%   { opacity: 0; transform: rotateX(90deg); }
-      55%  { opacity: 0.65; transform: rotateX(20deg); }
-      100% { opacity: 1; transform: rotateX(0deg); }
-    }
-
-    .hero-sub {
-      margin-top: 1.25rem;
-      font-size: 1.08rem;
-      color: var(--text-medium);
-      line-height: 1.8;
-      max-width: 40rem;
-    }
-
-    .hero-sub strong {
+    .heroKicker{
+      font-size: 14px;
       font-weight: 800;
+      color: var(--rand-blue);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .heroH{
+      font-size: 46px;
+      font-weight: 900;
+      letter-spacing: -1.6px;
+      line-height: 1.05;
       color: var(--rand-black);
     }
 
-    .quick-links {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-
-    .pill {
-      text-decoration: none;
-      font-weight: 900;
-      font-size: 0.85rem;
-      padding: 0.55rem 1rem;
-      border: 2px solid var(--rand-black);
-      background: #fff;
-      border-radius: 25px;
-      transition: background 0.2s ease, transform 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .heroH .rotator{
+      display:inline-block;
       white-space: nowrap;
     }
-    .pill:hover {
-      transform: translate(-2px, -2px);
-      background: var(--rand-yellow);
+
+    /* rotating words in red */
+    .heroH .rotWord{
+      color: var(--rand-red);
+      display:inline-block;
+      min-width: 180px;
+      text-align: left;
     }
 
-    .mini-signals {
-      border: 3px solid var(--rand-black);
-      background: #fff;
-      box-shadow: 8px 8px 0 var(--rand-yellow);
-      padding: 1.25rem 1.25rem 1.1rem;
+    .heroP{
+      max-width: 62ch;
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-top: 6px;
     }
 
-    .mini-signals .title {
-      display: inline-block;
-      font-size: 0.95rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #fff;
-      background: var(--rand-red);
-      padding: 0.25rem 0.75rem;
-      margin-bottom: 0.9rem;
-      transform: rotate(-1deg);
-    }
-
-    .mini-grid { display: grid; gap: 0.75rem; }
-
-    .mini-item {
-      border: 2px solid var(--rand-black);
-      padding: 0.75rem 0.85rem;
-      background: rgba(246,224,94,0.10);
-    }
-    .mini-item:nth-child(2) { background: rgba(72,187,120,0.10); }
-    .mini-item:nth-child(3) { background: rgba(49,130,206,0.10); }
-
-    .mini-item strong {
-      display: block;
-      font-weight: 900;
-      margin-bottom: 0.2rem;
-      color: var(--rand-black);
-      font-size: 0.95rem;
-    }
-
-    .mini-item span {
-      display: block;
-      color: var(--text-medium);
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-
-    /* SECTION HEADERS */
-    .section { padding: 2.6rem 0; }
-
-    .section h2 {
-      font-size: 2rem;
-      font-weight: 900;
-      margin-bottom: 1.25rem;
-      color: var(--rand-black);
-      position: relative;
-      display: inline-block;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
-    }
-    .section h2::after {
-      content: '';
-      position: absolute;
-      bottom: -7px;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--rand-red) 0%, var(--rand-yellow) 50%, var(--rand-blue) 100%);
-    }
-
-    .section p {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: var(--text-medium);
-      margin-bottom: 1.25rem;
-      max-width: 46rem;
-    }
-
-    /* AT A GLANCE */
-    .glance {
-      background: linear-gradient(135deg, rgba(246,224,94,0.06) 0%, rgba(49,130,206,0.06) 100%);
-      border-top: 3px solid var(--rand-black);
-      border-bottom: 3px solid var(--rand-black);
-    }
-
-    .glance-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-top: 1.25rem;
-    }
-
-    .glance-card {
-      border: 2px solid var(--rand-black);
-      background: #fff;
-      padding: 1rem 1.05rem;
-      transition: transform 0.2s ease;
-    }
-    .glance-card:hover { transform: translate(-2px, -2px); }
-
-    .glance-card:nth-child(1) { box-shadow: 6px 6px 0 rgba(229,62,62,0.55); }
-    .glance-card:nth-child(2) { box-shadow: 6px 6px 0 rgba(49,130,206,0.55); }
-    .glance-card:nth-child(3) { box-shadow: 6px 6px 0 rgba(72,187,120,0.55); }
-    .glance-card:nth-child(4) { box-shadow: 6px 6px 0 rgba(246,224,94,0.85); }
-
-    .glance-card strong {
-      display: block;
-      font-weight: 900;
-      margin-bottom: 0.25rem;
-      color: var(--rand-black);
-      font-size: 1rem;
-    }
-    .glance-card span {
-      display: block;
-      color: var(--text-medium);
-      font-size: 0.92rem;
-      line-height: 1.55;
-    }
-
-    /* OFFERINGS */
-    .offerings-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.4rem;
-      margin-top: 1.5rem;
-    }
-
-    .off-card {
-      background: #fff;
-      border: 2px solid var(--rand-black);
-      padding: 1.35rem 1.25rem;
-      transition: transform 0.2s ease;
-    }
-    .off-card:hover { transform: translate(-3px, -3px); }
-
-    .off-card:nth-child(1) { box-shadow: 7px 7px 0 var(--rand-red); }
-    .off-card:nth-child(2) { box-shadow: 7px 7px 0 var(--rand-blue); }
-    .off-card:nth-child(3) { box-shadow: 7px 7px 0 var(--rand-green); }
-
-    .off-card h3 {
-      font-size: 1.05rem;
-      font-weight: 900;
-      margin-bottom: 0.6rem;
-      color: var(--rand-black);
-      line-height: 1.25;
-    }
-
-    .off-card p {
-      margin: 0;
-      color: var(--text-medium);
-      font-size: 0.95rem;
-      line-height: 1.65;
-    }
-
-    /* HOW WE WORK */
-    .how {
-      background: var(--rand-black);
-      color: #fff;
-      border-top: 4px solid var(--rand-black);
-      border-bottom: 4px solid var(--rand-black);
-      box-shadow: 0 0 0 8px rgba(246,224,94,0.12) inset;
-    }
-
-    .how h2 { color: #fff; }
-    .how h2::after { display: none; }
-
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-top: 1.25rem;
-    }
-
-    .how-pill {
-      border: 2px solid #fff;
-      padding: 1.1rem 1rem;
-      background: rgba(255,255,255,0.04);
-    }
-
-    .how-pill .big {
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--rand-yellow);
-      font-size: 1.15rem;
-      margin-bottom: 0.35rem;
-    }
-    .how-pill .small {
-      color: rgba(255,255,255,0.92);
-      font-size: 0.95rem;
-      line-height: 1.55;
-    }
-
-    /* WHO WE SERVE */
-    .serve-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-top: 1.25rem;
-    }
-
-    .serve-item {
-      border: 2px solid var(--rand-black);
-      padding: 1rem 1.05rem;
-      background: #fff;
-      transition: transform 0.2s ease;
-    }
-    .serve-item:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--rand-black); }
-
-    .serve-item:nth-child(1) { background: rgba(229,62,62,0.10); }
-    .serve-item:nth-child(2) { background: rgba(49,130,206,0.10); }
-    .serve-item:nth-child(3) { background: rgba(72,187,120,0.10); }
-    .serve-item:nth-child(4) { background: rgba(246,224,94,0.10); }
-
-    .serve-item strong {
-      display: block;
-      font-weight: 900;
-      color: var(--rand-black);
-      margin-bottom: 0.25rem;
-    }
-    .serve-item span {
-      display: block;
-      color: var(--text-medium);
-      font-size: 0.92rem;
-      line-height: 1.55;
-    }
-
-    /* CTA */
-    .cta {
-      background: linear-gradient(135deg, var(--rand-blue) 0%, var(--rand-purple) 100%);
-      color: #fff;
-      border-top: 4px solid var(--rand-black);
-      border-bottom: 4px solid var(--rand-black);
-      padding: 3rem 0;
-    }
-
-    .cta h2 { color: #fff; }
-    .cta h2::after { display: none; }
-
-    .cta p { color: rgba(255,255,255,0.95); max-width: 48rem; }
-
-    .cta-buttons {
-      display: flex;
-      gap: 1rem;
+    .ctaRow{
+      display:flex;
+      gap: 10px;
       flex-wrap: wrap;
-      margin-top: 1.25rem;
+      margin-top: 10px;
     }
-
-    .btn-cta {
-      display: inline-block;
-      text-decoration: none;
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 0.85rem 1.5rem;
-      border: 3px solid var(--rand-yellow);
-      background: var(--rand-yellow);
+      letter-spacing: 0.06em;
+      font-size: 12px;
+      padding: 12px 14px;
+      border: 2px solid var(--rand-black);
+      background: #fff;
       color: var(--rand-black);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      border-radius: 0;
+      box-shadow: 6px 6px 0 var(--rand-yellow);
     }
-    .btn-cta:hover {
-      background: #fff;
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--rand-red);
+    .btn:hover{ transform: translate(-1px,-1px); box-shadow: 7px 7px 0 var(--rand-yellow); }
+    .btn.primary{
+      background: var(--rand-yellow);
     }
 
-    .btn-cta-outline {
-      border-color: #fff;
-      background: transparent;
-      color: #fff;
-    }
-    .btn-cta-outline:hover {
+    /* CONTENT */
+    main{ padding: 28px 0 60px; }
+    .section{
+      border: 2px solid var(--rand-black);
+      padding: 18px;
+      margin-top: 18px;
       background: #fff;
-      color: var(--rand-blue);
-      box-shadow: 6px 6px 0 var(--rand-black);
     }
-
-    /* Back to top */
-    .back-to-top {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background: var(--rand-red);
-      color: #fff;
-      border: 3px solid var(--rand-black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      text-decoration: none;
-      box-shadow: 5px 5px 0 var(--rand-black);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 1000;
+    .section h2{
+      font-size: 22px;
       font-weight: 900;
-      transform: rotate(45deg);
+      letter-spacing: -0.6px;
+      margin-bottom: 10px;
     }
-    .back-to-top span { transform: rotate(-45deg); }
-    .back-to-top.show { opacity: 1; visibility: visible; }
-    .back-to-top:hover {
-      background: var(--rand-yellow);
-      color: var(--rand-black);
-      transform: rotate(45deg) translate(-3px, -3px);
-      box-shadow: 8px 8px 0 var(--rand-black);
+    .section p{
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 15px;
     }
 
-    footer {
-      text-align: center;
-      padding: 2rem var(--pad-h);
-      border-top: 4px solid var(--rand-black);
-      background: linear-gradient(90deg, rgba(246,224,94,0.1) 0%, rgba(49,130,206,0.1) 100%);
-    }
-    .footer-content {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      color: var(--text-medium);
-      font-size: 0.82rem;
-      font-weight: 700;
-    }
-    .footer-content p { margin: 0.15rem 0; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .rotator.animating .rotator-current,
-      .rotator.animating .rotator-next { animation: none !important; }
+    footer{
+      border-top: 2px solid var(--rand-black);
+      padding: 18px 0;
+      color: var(--muted);
+      font-size: 12px;
     }
 
-    /* Responsive */
-    @media (max-width: 980px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .topbar { align-items: flex-start; }
-      .top-cta { justify-content: flex-start; }
-      .offerings-grid { grid-template-columns: 1fr; }
-      .how-grid { grid-template-columns: 1fr; }
-      .glance-grid { grid-template-columns: 1fr; }
-      .serve-grid { grid-template-columns: 1fr; }
-      .hero-h { font-size: 2.5rem; }
-      .rotator { width: 12.2em; }
+    @media (max-width: 720px){
+      .brand h1{ font-size: 34px; }
+      .heroH{ font-size: 38px; }
+      nav{ gap: 10px; }
+      .topUnderNavRow{ min-height: 64px; }
     }
 
-    @media (max-width: 520px) {
-      h1.logo { font-size: 3rem; }
-      .hero-h { font-size: 2.1rem; }
-      .rotator { width: 12.6em; }
-      .btn { width: 100%; text-align: center; }
-      .cta-buttons { flex-direction: column; }
-      .btn-cta { width: 100%; text-align: center; }
+    @media (prefers-reduced-motion: reduce){
+      .heroH .rotWord{ transition:none !important; }
     }
   </style>
 </head>
 
-<body id="top">
-  <div class="wrap">
-    <header>
-      <div class="topbar">
-        <div>
-          <div class="logo-container">
-            <h1 class="logo">Quontora</h1>
-          </div>
-          <div class="tagline" aria-label="Tagline">
-            <span class="bar" aria-hidden="true"></span>
-            <span>The company behind AIVI (AI Visibility Index)</span>
-          </div>
+<body>
+  <header class="wrap">
+    <div class="topUnit">
+      <div class="navRow">
+        <div class="brand" aria-label="Quontora">
+          <h1>Quontora</h1><span class="brandDot" aria-hidden="true"></span>
         </div>
 
-        <nav class="top-cta" aria-label="Primary actions">
-          <a class="btn btn-primary" href="https://aivindex.io">Open AIVI</a>
-          <a class="btn btn-outline" href="#contact">Get Started</a>
+        <nav aria-label="Primary navigation">
+          <a href="#tools">Tools</a>
+          <a href="#services">Services</a>
+          <a href="#method">Method</a>
+          <a href="#contact">Contact</a>
         </nav>
       </div>
-    </header>
 
-    <main>
-      <section class="hero" aria-label="Hero">
-        <div class="hero-grid">
-          <div class="hero-question">
-            <div class="hero-kicker">AI Visibility, Measured</div>
+      <!-- Moved here: part of the top unit, under the navigation -->
+      <div class="topUnderNavRow" aria-hidden="true">
+        <div class="aiviOneMin">AIVI IN ONE MIN</div>
+      </div>
 
-            <h2 class="hero-h">
-              DOES AI DESCRIBE YOUR<br />
-              BUSINESS AS
-              <span class="rotator" id="rotator" aria-label="Rotating descriptor">
-                <span class="rotator-stage">
-                  <span class="rotator-face rotator-current" id="rotCurrent">credible</span>
-                  <span class="rotator-face rotator-next" id="rotNext"></span>
-                </span>
-              </span>
-            </h2>
+      <div class="hero">
+        <div class="heroKicker">AI Visibility Index</div>
 
-            <p class="hero-sub">
-              <strong>Quontora builds AIVI</strong> — an index that measures how AI systems interpret your site.
-              Use it to see what’s working, where understanding breaks down, and what to change to strengthen the story AI tells.
-            </p>
-
-            <div class="quick-links" aria-label="Quick links">
-              <a class="pill" href="#glance">Quontora at a Glance</a>
-              <a class="pill" href="#offerings">Offerings</a>
-              <a class="pill" href="#how">How We Work</a>
-              <a class="pill" href="#contact">Get Started</a>
-            </div>
-          </div>
-
-          <aside class="mini-signals" aria-label="AIVI preview">
-            <div class="title">AIVI in one minute</div>
-            <div class="mini-grid">
-              <div class="mini-item">
-                <strong>What it measures</strong>
-                <span>AI interpretability + signal strength (not rankings).</span>
-              </div>
-              <div class="mini-item">
-                <strong>What you get</strong>
-                <span>Clear findings, prioritized actions, and implementation guidance.</span>
-              </div>
-              <div class="mini-item">
-                <strong>Who it’s for</strong>
-                <span>Brands, startups, agencies, and mission-driven teams.</span>
-              </div>
-            </div>
-          </aside>
+        <div class="heroH">
+          DOES AI DESCRIBE YOUR BRAND AS
+          <span class="rotator">
+            <span class="rotWord" id="rotWord">credible</span>
+          </span>
         </div>
-      </section>
-    </main>
-  </div>
 
-  <section id="glance" class="section glance" aria-label="Quontora at a Glance">
-    <div class="wrap">
-      <h2>Quontora at a Glance</h2>
+        <p class="heroP">
+          AIVI measures how AI systems reconstruct and interpret your site — so you can align structure, clarity, and trust with how modern discovery actually works.
+        </p>
+
+        <div class="ctaRow">
+          <a class="btn primary" href="#tools">Try AIVI</a>
+          <a class="btn" href="#contact">Talk to us</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section" id="tools">
+      <h2>Tools</h2>
       <p>
-        Quontora is an umbrella company focused on AI visibility. Our core product is <strong>AIVI</strong> — and we
-        support teams who want to move from “interesting findings” to “measurable improvement” with practical guidance and implementation help.
+        AIVI is the AI Visibility Index — a single reading backed by layered signals to show how your site is understood by AI systems.
       </p>
+    </section>
 
-      <div class="glance-grid">
-        <div class="glance-card">
-          <strong>📊 AIVI Index</strong>
-          <span>Measure AI visibility and signal strength.</span>
-        </div>
-        <div class="glance-card">
-          <strong>🧭 Index-Led Strategy</strong>
-          <span>Turn findings into clear priorities.</span>
-        </div>
-        <div class="glance-card">
-          <strong>🧱 Implementation Support</strong>
-          <span>Fix structure, schema, and content alignment.</span>
-        </div>
-        <div class="glance-card">
-          <strong>🎓 Enablement</strong>
-          <span>Training for teams and agencies.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="wrap">
-    <section id="offerings" class="section" aria-label="Offerings">
-      <h2>Offerings</h2>
+    <section class="section" id="services">
+      <h2>Services</h2>
       <p>
-        Start with AIVI to establish the baseline. Then choose the level of support you need — from a quick prioritization session
-        to hands-on implementation and training.
+        Strategy, implementation, and hands-on support for organizations that want AI to be useful — not noisy.
       </p>
-
-      <div class="offerings-grid">
-        <div class="off-card">
-          <h3>📊 AIVI Index Access</h3>
-          <p>Run your site through AIVI to reveal AI visibility signals across structure, clarity, authority, and content alignment.</p>
-        </div>
-
-        <div class="off-card">
-          <h3>🧭 AIVI Review &amp; Prioritization</h3>
-          <p>A guided walkthrough of your AIVI findings, translated into a short list of high-leverage actions your team can execute.</p>
-        </div>
-
-        <div class="off-card">
-          <h3>🧱 Implementation Support</h3>
-          <p>Hands-on help improving technical signals (crawlability, schema, internal linking) and content signals (entities, clarity, intent).</p>
-        </div>
-      </div>
     </section>
-  </div>
 
-  <section id="how" class="section how" aria-label="How we work">
-    <div class="wrap">
-      <h2>How We Work</h2>
-      <p style="color: rgba(255,255,255,0.92); max-width: 50rem;">
-        We’re index-led and execution-focused. AIVI helps align on what’s true, what’s missing, and what matters most — before any rewrite or rebuild.
+    <section class="section" id="method">
+      <h2>Method</h2>
+      <p>
+        We translate technical signals into clear findings, then map them to specific fixes your team can execute.
       </p>
-
-      <div class="how-grid">
-        <div class="how-pill">
-          <div class="big">Index-Led</div>
-          <div class="small">Measure first, guess less.</div>
-        </div>
-        <div class="how-pill">
-          <div class="big">Actionable</div>
-          <div class="small">Clean priorities your team can execute.</div>
-        </div>
-        <div class="how-pill">
-          <div class="big">Honest</div>
-          <div class="small">No hype. No overpromises. Clear tradeoffs.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="wrap">
-    <section class="section" aria-label="Who we serve">
-      <h2>Who We Serve</h2>
-      <p>AIVI is built for teams who want AI to describe them accurately — with clarity, credibility, and consistency.</p>
-
-      <div class="serve-grid">
-        <div class="serve-item">
-          <strong>💼 Brands &amp; Businesses</strong>
-          <span>Improve how AI explains your offering.</span>
-        </div>
-        <div class="serve-item">
-          <strong>🧑‍💼 Agencies &amp; Consultants</strong>
-          <span>Offer AI visibility as a measurable service.</span>
-        </div>
-        <div class="serve-item">
-          <strong>🚀 Startups</strong>
-          <span>Build durable credibility signals early.</span>
-        </div>
-        <div class="serve-item">
-          <strong>💚 Mission-Driven Orgs</strong>
-          <span>Clarify narrative and authority with lean teams.</span>
-        </div>
-      </div>
     </section>
-  </div>
 
-  <section id="contact" class="cta" aria-label="Get started">
-    <div class="wrap">
-      <h2>Get Started</h2>
-      <p>Run AIVI or book a short walkthrough. We’ll turn findings into a clean, executable plan.</p>
-
-      <div class="cta-buttons">
-        <a class="btn-cta" href="https://aivindex.io">Open AIVI</a>
-        <a class="btn-cta btn-cta-outline" href="https://calendly.com/quontora">Schedule a Walkthrough</a>
-        <a class="btn-cta btn-cta-outline" href="mailto:hello@quontora.com">Email Us</a>
-      </div>
-    </div>
-  </section>
-
-  <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top"><span>↑</span></a>
+    <section class="section" id="contact">
+      <h2>Contact</h2>
+      <p>
+        Email: hello@quontora.com
+      </p>
+    </section>
+  </main>
 
   <footer>
-    <div class="footer-content">
-      <p>&copy; 2025 Quontora. All rights reserved. Last updated <span id="update-date"></span>.</p>
-      <p>The company behind AIVI (AI Visibility Index) 🧭</p>
+    <div class="wrap">
+      © 2025 Quontora. All rights reserved.
     </div>
   </footer>
 
   <script>
-    // Footer date
-    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    const now = new Date();
-    document.getElementById('update-date').textContent = `${months[now.getMonth()]} ${now.getFullYear()}`;
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (!href || href === '#') return;
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-
-    // Show/hide back to top button
-    const backToTopButton = document.getElementById('backToTop');
-    window.addEventListener('scroll', function() {
-      if (window.pageYOffset > 300) backToTopButton.classList.add('show');
-      else backToTopButton.classList.remove('show');
-    });
-
-    // ✅ Word rotator (no ghost words): only current + next exist, others never render.
-    (function(){
-      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+    // Rotating word (keeps your layout stable; only swaps the word)
+    (function () {
       const words = [
-        'credible',
-        'clear and focused',
-        'authoritative',
-        'generic',
-        'confusing'
+        "clear and focused",
+        "authoritative",
+        "generic",
+        "confusing"
       ];
 
-      const rotator = document.getElementById('rotator');
-      const cur = document.getElementById('rotCurrent');
-      const next = document.getElementById('rotNext');
-
-      if (!rotator || !cur || !next) return;
+      const el = document.getElementById("rotWord");
+      if (!el) return;
 
       let i = 0;
-      cur.textContent = words[i];
-      next.textContent = '';
-
-      if (prefersReduced) return;
-
-      let isAnimating = false;
-
-      function step(){
-        if (isAnimating) return;
-        isAnimating = true;
-
-        const nextIndex = (i + 1) % words.length;
-        next.textContent = words[nextIndex];
-
-        // Start animation
-        rotator.classList.add('animating');
-
-        const onDone = () => {
-          rotator.classList.remove('animating');
-
-          // Commit next as current
-          i = nextIndex;
-          cur.textContent = words[i];
-          next.textContent = '';
-
-          isAnimating = false;
-          rotator.removeEventListener('animationend', onAnyEnd, true);
-        };
-
-        // We listen on the rotator; both animations run same duration.
-        const onAnyEnd = (e) => {
-          // Only finalize when the incoming face finished.
-          if (e.target === next) onDone();
-        };
-
-        rotator.addEventListener('animationend', onAnyEnd, true);
+      function tick(){
+        i = (i + 1) % words.length;
+        el.textContent = words[i];
       }
 
-      // cadence: hold then turn
-      const intervalMs = 2100;
-      const timer = setInterval(step, intervalMs);
-
-      // Pause on hover (optional but useful)
-      rotator.addEventListener('mouseenter', () => { clearInterval(timer); });
+      // start on first replacement after load
+      setInterval(tick, 1800);
     })();
   </script>
-
-  <!-- Version: v2025.12.16-2 -->
 </body>
 </html>
+
+<!-- Version: v2025.12.17-1 -->
