@@ -2,11 +2,14 @@
 <!--
   Quontora.com Index (Umbrella Site)
   Built by: ChatGPT
-  Version: v2025.12.17-6
+  Version: v2025.12.17-7
   Last Updated: 2025-12-17 (America/New_York)
 
   Change log (only):
-  - Move the ↑ button to the top-right of the Offerings section (inside main column).
+  1) Back-to-top button: restore FIXED behavior and place it at the RIGHT EDGE of the MAIN COLUMN,
+     vertically centered in the viewport (middle of page).
+  2) Header alignment: keep the CTA on the same header row more reliably by allowing the tagline to wrap.
+  3) Rotator words: append “?” to each word.
 -->
 <html lang="en">
 <head>
@@ -88,7 +91,7 @@
 
     .topbar {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: space-between;
       gap: 1.5rem;
       flex-wrap: wrap;
@@ -138,8 +141,8 @@
       display: inline-flex;
       align-items: center;
       gap: 0.65rem;
-      white-space: nowrap;
       margin-top: 0.35rem;
+      white-space: normal; /* ✅ allow wrap so header aligns instead of forcing CTA to drop */
     }
     .tagline .bar {
       display: inline-block;
@@ -147,6 +150,7 @@
       height: 3px;
       background: var(--rand-red);
       transform: translateY(1px);
+      flex: 0 0 auto;
     }
 
     .top-cta {
@@ -216,7 +220,7 @@
       vertical-align: baseline;
       height: 1em;
       overflow: hidden;
-      width: 13.2ch;
+      width: 14ch; /* room for “trustworthy?” */
       margin-left: 0.18em;
       perspective: 900px;
       perspective-origin: 50% 50%;
@@ -570,12 +574,14 @@
       box-shadow: 6px 6px 0 var(--rand-black);
     }
 
-    /* Back to top — now positioned in Offerings (no other changes) */
-    #offerings { position: relative; }
+    /* Back to top button — FIXED + aligned to right edge of main column + vertically centered */
     .back-to-top {
-      position: absolute;
-      top: 0;
-      right: 0;
+      position: fixed;
+      top: 50%;
+      right: max(
+        20px,
+        calc((100vw - (var(--content-width) + (2 * var(--pad-h)))) / 2 + var(--pad-h))
+      );
       width: 60px;
       height: 60px;
       background: var(--rand-red);
@@ -592,14 +598,14 @@
       transition: all 0.3s ease;
       z-index: 1000;
       font-weight: 900;
-      transform: rotate(45deg);
+      transform: translateY(-50%) rotate(45deg);
     }
     .back-to-top span { transform: rotate(-45deg); }
     .back-to-top.show { opacity: 1; visibility: visible; }
     .back-to-top:hover {
       background: var(--rand-yellow);
       color: var(--rand-black);
-      transform: rotate(45deg) translate(-3px, -3px);
+      transform: translateY(calc(-50% - 3px)) rotate(45deg) translate(-3px, -3px);
       box-shadow: 8px 8px 0 var(--rand-black);
     }
 
@@ -633,10 +639,7 @@
       .aivi-cols { grid-template-columns: 1fr; }
       .quick-links { grid-template-columns: 1fr; max-width: 40rem; }
       .hero-line2 { white-space: nowrap; }
-      .rotator { width: 13.5ch; }
-
-      /* keep button at edge of main column */
-      .back-to-top { right: 0; }
+      .rotator { width: 14.2ch; }
     }
 
     @media (max-width: 520px) {
@@ -645,7 +648,6 @@
       .cta-buttons { flex-direction: column; }
       .btn-cta { width: 100%; text-align: center; }
       .hero-line2 { white-space: nowrap; }
-      .back-to-top { top: -0.25rem; }
     }
   </style>
 </head>
@@ -680,7 +682,7 @@
                 BRAND AS
                 <span class="rotator" id="rotator" aria-label="Rotating descriptor">
                   <span class="rotator-stage">
-                    <span class="rotator-face rotator-current" id="rotCurrent">generic</span>
+                    <span class="rotator-face rotator-current" id="rotCurrent">generic?</span>
                     <span class="rotator-face rotator-next" id="rotNext"></span>
                   </span>
                 </span>
@@ -731,7 +733,7 @@
       <div class="glance-grid">
         <div class="glance-card">
           <strong>📊 AIVI Index</strong>
-          <span>Measure AI visibility and signal strength.</span>
+          <span>Confirm AI visibility and signal strength.</span>
         </div>
         <div class="glance-card">
           <strong>🧭 Index-Led Strategy</strong>
@@ -751,9 +753,6 @@
 
   <div class="wrap">
     <section id="offerings" class="section" aria-label="Offerings">
-      <!-- moved here -->
-      <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top"><span>↑</span></a>
-
       <h2>Offerings</h2>
       <p>
         Start with AIVI to establish the baseline. Then choose the level of support you need — from a quick prioritization session
@@ -825,7 +824,7 @@
           <strong>💚 Mission-Driven Orgs</strong>
           <span>Clarify narrative and authority with lean teams.</span>
         </div>
-      </div>
+      </div подтверж>
     </section>
   </div>
 
@@ -842,6 +841,9 @@
     </div>
   </section>
 
+  <!-- Back to Top Button -->
+  <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top"><span>↑</span></a>
+
   <footer>
     <div class="footer-content">
       <p>&copy; 2025 Quontora. All rights reserved. Last updated <span id="update-date"></span>.</p>
@@ -850,10 +852,12 @@
   </footer>
 
   <script>
+    // Footer date
     const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const now = new Date();
     document.getElementById('update-date').textContent = `${months[now.getMonth()]} ${now.getFullYear()}`;
 
+    // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
@@ -866,25 +870,26 @@
       });
     });
 
-    // Show/hide up button (now located in Offerings)
+    // Show/hide back to top button
     const backToTopButton = document.getElementById('backToTop');
     window.addEventListener('scroll', function() {
       if (window.pageYOffset > 300) backToTopButton.classList.add('show');
       else backToTopButton.classList.remove('show');
     });
 
+    // Rotator
     (function(){
       const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       const words = [
-        'generic',
-        'unclear',
-        'confusing',
-        'replaceable',
-        'credible',
-        'trustworthy',
-        'authoritative',
-        'distinct'
+        'generic?',
+        'unclear?',
+        'confusing?',
+        'replaceable?',
+        'credible?',
+        'trustworthy?',
+        'authoritative?',
+        'distinct?'
       ];
 
       const rotator = document.getElementById('rotator');
@@ -930,6 +935,6 @@
     })();
   </script>
 
-  <!-- Built by: ChatGPT | Version: v2025.12.17-6 -->
+  <!-- Built by: ChatGPT | Version: v2025.12.17-7 -->
 </body>
 </html>
