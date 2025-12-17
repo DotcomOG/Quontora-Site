@@ -2,11 +2,11 @@
 <!--
   Quontora.com Index (Umbrella Site)
   Built by: ChatGPT
-  Version: v2025.12.17-4
+  Version: v2025.12.17-6
   Last Updated: 2025-12-17 (America/New_York)
 
   Change log (only):
-  - Align rotating word baseline with “BRAND AS” (no layout/design changes otherwise).
+  - Move the ↑ button to the top-right of the Offerings section (inside main column).
 -->
 <html lang="en">
 <head>
@@ -205,29 +205,22 @@
       color: var(--rand-black);
     }
 
-    /* Keep line 2 on a single line */
     .hero-line2 {
-      display: inline-flex;          /* ✅ helps baseline alignment */
-      align-items: baseline;         /* ✅ */
-      gap: 0.18em;                   /* ✅ consistent spacing */
+      display: block;
       white-space: nowrap;
     }
 
-    /* ROTATOR */
     .rotator {
       display: inline-block;
       position: relative;
       vertical-align: baseline;
       height: 1em;
-      line-height: 1em;              /* ✅ baseline consistency */
       overflow: hidden;
       width: 13.2ch;
-      margin-left: 0;                /* spacing handled by .hero-line2 gap */
+      margin-left: 0.18em;
       perspective: 900px;
       perspective-origin: 50% 50%;
       transform-style: preserve-3d;
-
-      top: -0.06em;                  /* ✅ nudge up to match “BRAND AS” baseline */
     }
 
     .rotator-stage {
@@ -577,10 +570,12 @@
       box-shadow: 6px 6px 0 var(--rand-black);
     }
 
+    /* Back to top — now positioned in Offerings (no other changes) */
+    #offerings { position: relative; }
     .back-to-top {
-      position: fixed;
-      bottom: 20px;
-      right: max(20px, calc((100vw - (var(--content-width) + (2 * var(--pad-h)))) / 2 + var(--pad-h)));
+      position: absolute;
+      top: 0;
+      right: 0;
       width: 60px;
       height: 60px;
       background: var(--rand-red);
@@ -638,7 +633,10 @@
       .aivi-cols { grid-template-columns: 1fr; }
       .quick-links { grid-template-columns: 1fr; max-width: 40rem; }
       .hero-line2 { white-space: nowrap; }
-      .rotator { width: 13.5ch; top: -0.05em; }
+      .rotator { width: 13.5ch; }
+
+      /* keep button at edge of main column */
+      .back-to-top { right: 0; }
     }
 
     @media (max-width: 520px) {
@@ -647,7 +645,7 @@
       .cta-buttons { flex-direction: column; }
       .btn-cta { width: 100%; text-align: center; }
       .hero-line2 { white-space: nowrap; }
-      .rotator { top: -0.04em; }
+      .back-to-top { top: -0.25rem; }
     }
   </style>
 </head>
@@ -753,6 +751,9 @@
 
   <div class="wrap">
     <section id="offerings" class="section" aria-label="Offerings">
+      <!-- moved here -->
+      <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top"><span>↑</span></a>
+
       <h2>Offerings</h2>
       <p>
         Start with AIVI to establish the baseline. Then choose the level of support you need — from a quick prioritization session
@@ -841,8 +842,6 @@
     </div>
   </section>
 
-  <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top"><span>↑</span></a>
-
   <footer>
     <div class="footer-content">
       <p>&copy; 2025 Quontora. All rights reserved. Last updated <span id="update-date"></span>.</p>
@@ -867,6 +866,7 @@
       });
     });
 
+    // Show/hide up button (now located in Offerings)
     const backToTopButton = document.getElementById('backToTop');
     window.addEventListener('scroll', function() {
       if (window.pageYOffset > 300) backToTopButton.classList.add('show');
@@ -930,6 +930,6 @@
     })();
   </script>
 
-  <!-- Built by: ChatGPT | Version: v2025.12.17-4 -->
+  <!-- Built by: ChatGPT | Version: v2025.12.17-6 -->
 </body>
 </html>
