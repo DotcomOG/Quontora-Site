@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <!--
   Quontora.com Index (Umbrella Site)
-  Version: v2025.12.16-1
-  Built by ChatGPT
+  Version: v2025.12.16-2
   Last Updated: 2025-12-16 (America/New_York)
 
   Notes:
-  - Full redesign with the same Paul Rand-inspired design language (bold geometry + primary palette).
-  - New hero question with “cylinder turn” word animation (keeps font + kerning via inherited typography).
-  - Reduced boxiness: more open whitespace, fewer heavy containers, clearer hierarchy.
+  - Hero word animation fixed: NO ghost words; only the active word is visible.
+  - Cylinder-turn effect implemented as a 3D flip between two faces (current + next).
+  - Keeps font + kerning by inheriting all typography from the hero headline.
 -->
 <html lang="en">
 <head>
@@ -86,9 +85,7 @@
       padding: 0 var(--pad-h);
     }
 
-    header {
-      padding: var(--pad-v) 0 0;
-    }
+    header { padding: var(--pad-v) 0 0; }
 
     .topbar {
       display: flex;
@@ -143,8 +140,8 @@
       align-items: center;
       gap: 0.65rem;
       white-space: nowrap;
+      margin-top: 0.35rem;
     }
-
     .tagline .bar {
       display: inline-block;
       width: 26px;
@@ -200,9 +197,7 @@
     }
 
     /* HERO */
-    .hero {
-      padding: 2.25rem 0 2.5rem;
-    }
+    .hero { padding: 2.25rem 0 2.5rem; }
 
     .hero-grid {
       display: grid;
@@ -211,9 +206,7 @@
       align-items: start;
     }
 
-    .hero-question {
-      padding: 0.75rem 0 0.25rem;
-    }
+    .hero-question { padding: 0.75rem 0 0.25rem; }
 
     .hero-kicker {
       display: inline-block;
@@ -236,34 +229,68 @@
       color: var(--rand-black);
     }
 
-    /* The animated word inherits font + kerning naturally */
-    .hero-h .word-wrap {
+    /* ✅ FIXED ROTATOR: only 2 faces exist, others never render */
+    .rotator {
       display: inline-block;
       position: relative;
       vertical-align: baseline;
       height: 1em;
-      overflow: hidden;
-      width: 10.6em; /* stable width so layout doesn't jump (tuned for longest phrase) */
-      margin-left: 0.2em;
-      perspective: 700px;
+      overflow: hidden; /* hard clip */
+      width: 11.6em;    /* stable to avoid layout shift (fits “CLEAR AND FOCUSED”) */
+      margin-left: 0.18em;
+
+      /* cylinder feel */
+      perspective: 900px;
       perspective-origin: 50% 50%;
+      transform-style: preserve-3d;
     }
 
-    .drum {
+    .rotator-stage {
       position: relative;
       height: 1em;
       transform-style: preserve-3d;
-      will-change: transform;
     }
 
-    .drum-word {
+    .rotator-face {
       position: absolute;
       left: 0;
       top: 0;
       height: 1em;
-      line-height: 1em;
+      line-height: 1em; /* inherits font & kerning via parent */
       white-space: nowrap;
       backface-visibility: hidden;
+      opacity: 0; /* ✅ hidden by default */
+      transform-origin: 50% 50%;
+    }
+
+    .rotator-current {
+      opacity: 1;
+      transform: rotateX(0deg) translateZ(0);
+    }
+
+    .rotator-next {
+      opacity: 0;
+      transform: rotateX(90deg) translateZ(0);
+    }
+
+    /* Animate flip: current goes “down” and away; next comes into line at 100% opacity */
+    .rotator.animating .rotator-current {
+      animation: flipOut 520ms cubic-bezier(.2,.75,.2,1) forwards;
+    }
+    .rotator.animating .rotator-next {
+      animation: flipIn 520ms cubic-bezier(.2,.75,.2,1) forwards;
+    }
+
+    @keyframes flipOut {
+      0%   { opacity: 1; transform: rotateX(0deg); }
+      55%  { opacity: 0.3; transform: rotateX(-70deg); }
+      100% { opacity: 0; transform: rotateX(-90deg); }
+    }
+
+    @keyframes flipIn {
+      0%   { opacity: 0; transform: rotateX(90deg); }
+      55%  { opacity: 0.65; transform: rotateX(20deg); }
+      100% { opacity: 1; transform: rotateX(0deg); }
     }
 
     .hero-sub {
@@ -277,6 +304,31 @@
     .hero-sub strong {
       font-weight: 800;
       color: var(--rand-black);
+    }
+
+    .quick-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .pill {
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 0.85rem;
+      padding: 0.55rem 1rem;
+      border: 2px solid var(--rand-black);
+      background: #fff;
+      border-radius: 25px;
+      transition: background 0.2s ease, transform 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .pill:hover {
+      transform: translate(-2px, -2px);
+      background: var(--rand-yellow);
     }
 
     .mini-signals {
@@ -299,17 +351,13 @@
       transform: rotate(-1deg);
     }
 
-    .mini-grid {
-      display: grid;
-      gap: 0.75rem;
-    }
+    .mini-grid { display: grid; gap: 0.75rem; }
 
     .mini-item {
       border: 2px solid var(--rand-black);
       padding: 0.75rem 0.85rem;
       background: rgba(246,224,94,0.10);
     }
-
     .mini-item:nth-child(2) { background: rgba(72,187,120,0.10); }
     .mini-item:nth-child(3) { background: rgba(49,130,206,0.10); }
 
@@ -329,9 +377,7 @@
     }
 
     /* SECTION HEADERS */
-    .section {
-      padding: 2.6rem 0;
-    }
+    .section { padding: 2.6rem 0; }
 
     .section h2 {
       font-size: 2rem;
@@ -361,7 +407,7 @@
       max-width: 46rem;
     }
 
-    /* AT A GLANCE (lighter container, less boxy) */
+    /* AT A GLANCE */
     .glance {
       background: linear-gradient(135deg, rgba(246,224,94,0.06) 0%, rgba(49,130,206,0.06) 100%);
       border-top: 3px solid var(--rand-black);
@@ -395,37 +441,11 @@
       color: var(--rand-black);
       font-size: 1rem;
     }
-
     .glance-card span {
       display: block;
       color: var(--text-medium);
       font-size: 0.92rem;
       line-height: 1.55;
-    }
-
-    .quick-links {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-
-    .pill {
-      text-decoration: none;
-      font-weight: 900;
-      font-size: 0.85rem;
-      padding: 0.55rem 1rem;
-      border: 2px solid var(--rand-black);
-      background: #fff;
-      border-radius: 25px;
-      transition: background 0.2s ease, transform 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
-    }
-    .pill:hover {
-      transform: translate(-2px, -2px);
-      background: var(--rand-yellow);
     }
 
     /* OFFERINGS */
@@ -634,9 +654,9 @@
     }
     .footer-content p { margin: 0.15rem 0; }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
-      .drum { transform: none !important; }
+      .rotator.animating .rotator-current,
+      .rotator.animating .rotator-next { animation: none !important; }
     }
 
     /* Responsive */
@@ -649,13 +669,13 @@
       .glance-grid { grid-template-columns: 1fr; }
       .serve-grid { grid-template-columns: 1fr; }
       .hero-h { font-size: 2.5rem; }
-      .hero-h .word-wrap { width: 11.2em; }
+      .rotator { width: 12.2em; }
     }
 
     @media (max-width: 520px) {
       h1.logo { font-size: 3rem; }
       .hero-h { font-size: 2.1rem; }
-      .hero-h .word-wrap { width: 11.6em; }
+      .rotator { width: 12.6em; }
       .btn { width: 100%; text-align: center; }
       .cta-buttons { flex-direction: column; }
       .btn-cta { width: 100%; text-align: center; }
@@ -693,13 +713,10 @@
             <h2 class="hero-h">
               DOES AI DESCRIBE YOUR<br />
               BUSINESS AS
-              <span class="word-wrap" aria-label="Rotating descriptor">
-                <span class="drum" id="drum">
-                  <span class="drum-word">credible</span>
-                  <span class="drum-word">clear and focused</span>
-                  <span class="drum-word">authoritative</span>
-                  <span class="drum-word">generic</span>
-                  <span class="drum-word">confusing</span>
+              <span class="rotator" id="rotator" aria-label="Rotating descriptor">
+                <span class="rotator-stage">
+                  <span class="rotator-face rotator-current" id="rotCurrent">credible</span>
+                  <span class="rotator-face rotator-next" id="rotNext"></span>
                 </span>
               </span>
             </h2>
@@ -743,8 +760,8 @@
     <div class="wrap">
       <h2>Quontora at a Glance</h2>
       <p>
-        Quontora is an umbrella company focused on AI visibility. Our core product is <strong>AIVI</strong> — and we support teams
-        who want to move from “interesting findings” to “measurable improvement” with practical guidance and implementation help.
+        Quontora is an umbrella company focused on AI visibility. Our core product is <strong>AIVI</strong> — and we
+        support teams who want to move from “interesting findings” to “measurable improvement” with practical guidance and implementation help.
       </p>
 
       <div class="glance-grid">
@@ -779,23 +796,17 @@
       <div class="offerings-grid">
         <div class="off-card">
           <h3>📊 AIVI Index Access</h3>
-          <p>
-            Run your site through AIVI to reveal AI visibility signals across structure, clarity, authority, and content alignment.
-          </p>
+          <p>Run your site through AIVI to reveal AI visibility signals across structure, clarity, authority, and content alignment.</p>
         </div>
 
         <div class="off-card">
           <h3>🧭 AIVI Review &amp; Prioritization</h3>
-          <p>
-            A guided walkthrough of your AIVI findings, translated into a short list of high-leverage actions your team can execute.
-          </p>
+          <p>A guided walkthrough of your AIVI findings, translated into a short list of high-leverage actions your team can execute.</p>
         </div>
 
         <div class="off-card">
           <h3>🧱 Implementation Support</h3>
-          <p>
-            Hands-on help improving technical signals (crawlability, schema, internal linking) and content signals (entities, clarity, intent).
-          </p>
+          <p>Hands-on help improving technical signals (crawlability, schema, internal linking) and content signals (entities, clarity, intent).</p>
         </div>
       </div>
     </section>
@@ -805,7 +816,7 @@
     <div class="wrap">
       <h2>How We Work</h2>
       <p style="color: rgba(255,255,255,0.92); max-width: 50rem;">
-        We’re index-led and execution-focused. AIVI helps us align on what’s true, what’s missing, and what matters most — before any rewrite or rebuild.
+        We’re index-led and execution-focused. AIVI helps align on what’s true, what’s missing, and what matters most — before any rewrite or rebuild.
       </p>
 
       <div class="how-grid">
@@ -828,9 +839,7 @@
   <div class="wrap">
     <section class="section" aria-label="Who we serve">
       <h2>Who We Serve</h2>
-      <p>
-        AIVI is built for teams who want AI to describe them accurately — with clarity, credibility, and consistency.
-      </p>
+      <p>AIVI is built for teams who want AI to describe them accurately — with clarity, credibility, and consistency.</p>
 
       <div class="serve-grid">
         <div class="serve-item">
@@ -856,9 +865,7 @@
   <section id="contact" class="cta" aria-label="Get started">
     <div class="wrap">
       <h2>Get Started</h2>
-      <p>
-        Run AIVI or book a short walkthrough. We’ll turn findings into a clean, executable plan.
-      </p>
+      <p>Run AIVI or book a short walkthrough. We’ll turn findings into a clean, executable plan.</p>
 
       <div class="cta-buttons">
         <a class="btn-cta" href="https://aivindex.io">Open AIVI</a>
@@ -868,7 +875,6 @@
     </div>
   </section>
 
-  <!-- Back to Top Button -->
   <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top"><span>↑</span></a>
 
   <footer>
@@ -880,8 +886,7 @@
 
   <script>
     // Footer date
-    const months = ['January', 'February', 'March', 'April', 'May', 'June',
-                   'July', 'August', 'September', 'October', 'November', 'December'];
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const now = new Date();
     document.getElementById('update-date').textContent = `${months[now.getMonth()]} ${now.getFullYear()}`;
 
@@ -905,61 +910,72 @@
       else backToTopButton.classList.remove('show');
     });
 
-    // Cylinder / drum word animation
+    // ✅ Word rotator (no ghost words): only current + next exist, others never render.
     (function(){
       const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const drum = document.getElementById('drum');
-      if (!drum) return;
 
-      const words = Array.from(drum.querySelectorAll('.drum-word'));
-      if (words.length < 2) return;
+      const words = [
+        'credible',
+        'clear and focused',
+        'authoritative',
+        'generic',
+        'confusing'
+      ];
 
-      // Keep inherited typography (font + kerning) by not setting any font styles here.
-      // Cylinder geometry:
-      // We position each word around a vertical "drum" using rotateX and translateZ.
-      const N = words.length;
-      const step = 360 / N;
+      const rotator = document.getElementById('rotator');
+      const cur = document.getElementById('rotCurrent');
+      const next = document.getElementById('rotNext');
 
-      // TranslateZ determines “radius” of the cylinder. Tuned to feel like a printed drum.
-      const radiusPx = 18;
+      if (!rotator || !cur || !next) return;
 
-      words.forEach((el, i) => {
-        el.style.transform = `rotateX(${i * step}deg) translateZ(${radiusPx}px)`;
-      });
-
-      let index = 0;
-      let timer = null;
-
-      function setAngle(i, immediate) {
-        const angle = -i * step;
-        drum.style.transition = immediate ? 'none' : 'transform 520ms cubic-bezier(.2,.75,.2,1)';
-        drum.style.transform = `rotateX(${angle}deg)`;
-      }
-
-      // Start at first word (credible)
-      setAngle(0, true);
+      let i = 0;
+      cur.textContent = words[i];
+      next.textContent = '';
 
       if (prefersReduced) return;
 
-      timer = setInterval(() => {
-        index = (index + 1) % N;
-        setAngle(index, false);
-      }, 2100);
+      let isAnimating = false;
 
-      // Optional: pause on hover for control
-      const wrap = drum.parentElement;
-      if (wrap) {
-        wrap.addEventListener('mouseenter', () => { if (timer) clearInterval(timer); timer = null; });
-        wrap.addEventListener('mouseleave', () => {
-          if (!timer) timer = setInterval(() => {
-            index = (index + 1) % N;
-            setAngle(index, false);
-          }, 2100);
-        });
+      function step(){
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const nextIndex = (i + 1) % words.length;
+        next.textContent = words[nextIndex];
+
+        // Start animation
+        rotator.classList.add('animating');
+
+        const onDone = () => {
+          rotator.classList.remove('animating');
+
+          // Commit next as current
+          i = nextIndex;
+          cur.textContent = words[i];
+          next.textContent = '';
+
+          isAnimating = false;
+          rotator.removeEventListener('animationend', onAnyEnd, true);
+        };
+
+        // We listen on the rotator; both animations run same duration.
+        const onAnyEnd = (e) => {
+          // Only finalize when the incoming face finished.
+          if (e.target === next) onDone();
+        };
+
+        rotator.addEventListener('animationend', onAnyEnd, true);
       }
+
+      // cadence: hold then turn
+      const intervalMs = 2100;
+      const timer = setInterval(step, intervalMs);
+
+      // Pause on hover (optional but useful)
+      rotator.addEventListener('mouseenter', () => { clearInterval(timer); });
     })();
   </script>
 
-  <!-- Version: v2025.12.16-1 -->
+  <!-- Version: v2025.12.16-2 -->
 </body>
 </html>
