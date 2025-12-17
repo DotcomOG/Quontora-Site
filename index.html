@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Quontora.com Index (Umbrella Site)
-  Version: v2025.12.17-1
+  Version: v2025.12.17-2
   Last Updated: 2025-12-17 (America/New_York)
 
   Notes:
@@ -10,6 +10,7 @@
   - Layout change: remove right-side aside; hero is full-width single column.
   - Added: full-width 3-column section for the former “AIVI in one minute” content.
   - Hero pills: spread evenly across the row (desktop), responsive stack on small screens.
+  - FIX: Back-to-top button aligned to the right edge of the main column (.wrap), not viewport.
 -->
 <html lang="en">
 <head>
@@ -612,7 +613,8 @@
     .back-to-top {
       position: fixed;
       bottom: 20px;
-      right: 20px;
+      /* ✅ ONLY CHANGE: align to right edge of the main column (.wrap) */
+      right: max(20px, calc((100vw - (var(--content-width) + (2 * var(--pad-h)))) / 2 + var(--pad-h)));
       width: 60px;
       height: 60px;
       background: var(--rand-red);
@@ -711,8 +713,6 @@
       <section class="hero" aria-label="Hero">
         <div class="hero-grid">
           <div class="hero-question">
-            <!-- Removed: AI Visibility, Measured -->
-
             <h2 class="hero-h">
               DOES AI DESCRIBE YOUR<br />
               BUSINESS AS
@@ -946,17 +946,13 @@
         const nextIndex = (i + 1) % words.length;
         next.textContent = words[nextIndex];
 
-        // Start animation
         rotator.classList.add('animating');
 
         const onDone = () => {
           rotator.classList.remove('animating');
-
-          // Commit next as current
           i = nextIndex;
           cur.textContent = words[i];
           next.textContent = '';
-
           isAnimating = false;
           rotator.removeEventListener('animationend', onAnyEnd, true);
         };
@@ -972,6 +968,6 @@
     })();
   </script>
 
-  <!-- Version: v2025.12.17-1 -->
+  <!-- Version: v2025.12.17-2 -->
 </body>
 </html>
