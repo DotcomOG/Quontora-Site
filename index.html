@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <!--
   Quontora.com Index (Umbrella Site)
-  Version: v2026.01.22-1
+  Version: v2026.01.22-2
   Last Updated: 2026-01-22 (America/New_York)
 
   Change log (only):
-  1) Update copy to align with current AI Subtext positioning and terminology (remove outdated “index” language; use “report”/“analysis” language consistent with AI Subtext).
-  2) Update title/casing to “AI Subtext” consistently.
-  3) Remove any “Built by ChatGPT” / LLM attribution traces in comments.
-  4) Fix stray invalid markup/typo near end of “Who We Serve” section (remove stray characters).
-  5) No design/layout changes.
+  1) Fix hero rotator word cutoff by increasing the rotator window width to accommodate longest word (“authoritative?”).
+  2) No other design/layout/functionality changes.
 -->
 <html lang="en">
 <head>
@@ -142,7 +139,7 @@
       align-items: center;
       gap: 0.65rem;
       margin-top: 0.35rem;
-      white-space: normal; /* ✅ allow wrap so header aligns instead of forcing CTA to drop */
+      white-space: normal;
     }
     .tagline .bar {
       display: inline-block;
@@ -220,7 +217,10 @@
       vertical-align: baseline;
       height: 1em;
       overflow: hidden;
-      width: 14ch; /* room for “trustworthy?” */
+
+      /* widened to avoid cutoff on “authoritative?” */
+      width: 16.5ch;
+
       margin-left: 0.18em;
       perspective: 900px;
       perspective-origin: 50% 50%;
@@ -639,7 +639,7 @@
       .aivi-cols { grid-template-columns: 1fr; }
       .quick-links { grid-template-columns: 1fr; max-width: 40rem; }
       .hero-line2 { white-space: nowrap; }
-      .rotator { width: 14.2ch; }
+      .rotator { width: 16.7ch; }
     }
 
     @media (max-width: 520px) {
@@ -935,6 +935,6 @@
     })();
   </script>
 
-  <!-- Version footer: v2026.01.22-1 -->
+  <!-- Version footer: v2026.01.22-2 -->
 </body>
 </html>
