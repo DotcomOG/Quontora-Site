@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <!--
   Quontora.com Index (Umbrella Site)
-  Version: v2026.01.22-2
+  Version: v2026.01.22-3
   Last Updated: 2026-01-22 (America/New_York)
 
   Change log (only):
-  1) Fix hero rotator word cutoff by increasing the rotator window width to accommodate longest word (“authoritative?”).
-  2) No other design/layout/functionality changes.
+  1) Remove the three hero pills (Quontora at a Glance / Offerings / How We Work).
+  2) Remove the yellow top CTA button from the header.
+  3) Add the AI Subtext CTA button in the hero area where the pills were (same pill styling).
+  4) No other design/layout/functionality changes.
 -->
 <html lang="en">
 <head>
@@ -217,10 +219,7 @@
       vertical-align: baseline;
       height: 1em;
       overflow: hidden;
-
-      /* widened to avoid cutoff on “authoritative?” */
       width: 16.5ch;
-
       margin-left: 0.18em;
       perspective: 900px;
       perspective-origin: 50% 50%;
@@ -311,10 +310,24 @@
       white-space: nowrap;
       text-align: center;
       width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
     .pill:hover {
       transform: translate(-2px, -2px);
       background: var(--rand-yellow);
+    }
+
+    /* CTA pill used in hero (replaces the three pills) */
+    .pill-cta {
+      background: var(--rand-yellow);
+      border-color: var(--rand-black);
+      color: var(--rand-black);
+    }
+    .pill-cta:hover {
+      background: #fff;
     }
 
     .aivi-one-minute { padding: 0 0 2.6rem; }
@@ -631,13 +644,11 @@
 
     @media (max-width: 980px) {
       .topbar { align-items: flex-start; }
-      .top-cta { justify-content: flex-start; }
       .offerings-grid { grid-template-columns: 1fr; }
       .how-grid { grid-template-columns: 1fr; }
       .glance-grid { grid-template-columns: 1fr; }
       .serve-grid { grid-template-columns: 1fr; }
       .aivi-cols { grid-template-columns: 1fr; }
-      .quick-links { grid-template-columns: 1fr; max-width: 40rem; }
       .hero-line2 { white-space: nowrap; }
       .rotator { width: 16.7ch; }
     }
@@ -666,9 +677,8 @@
           </div>
         </div>
 
-        <nav class="top-cta" aria-label="Primary actions">
-          <a class="btn btn-primary" href="https://aisubtext.ai">Open AI Subtext</a>
-        </nav>
+        <!-- Top CTA removed per request -->
+        <nav class="top-cta" aria-label="Primary actions"></nav>
       </div>
     </header>
 
@@ -694,10 +704,9 @@
               Use it to see what’s working, where understanding breaks down, and what to change so AI presents your brand with clarity and credibility.
             </p>
 
-            <div class="quick-links" aria-label="Quick links">
-              <a class="pill" href="#glance">Quontora at a Glance</a>
-              <a class="pill" href="#offerings">Offerings</a>
-              <a class="pill" href="#how">How We Work</a>
+            <!-- Pills removed; AI Subtext CTA placed here -->
+            <div class="quick-links" aria-label="Primary hero action">
+              <a class="pill pill-cta" href="https://aisubtext.ai">Open AI Subtext</a>
             </div>
           </div>
         </div>
@@ -935,6 +944,6 @@
     })();
   </script>
 
-  <!-- Version footer: v2026.01.22-2 -->
+  <!-- Version footer: v2026.01.22-3 -->
 </body>
 </html>
