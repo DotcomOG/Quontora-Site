@@ -1,949 +1,563 @@
-<!DOCTYPE html>
-<!--
-  Quontora.com Index (Umbrella Site)
-  Version: v2026.01.22-3
-  Last Updated: 2026-01-22 (America/New_York)
 
-  Change log (only):
-  1) Remove the three hero pills (Quontora at a Glance / Offerings / How We Work).
-  2) Remove the yellow top CTA button from the header.
-  3) Add the AI Subtext CTA button in the hero area where the pills were (same pill styling).
-  4) No other design/layout/functionality changes.
--->
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quontora — The Company Behind AI Subtext</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quontora — The company behind AI·subtext</title>
+  <meta name="description" content="Quontora builds AI·subtext, the Recommendation Share Intelligence platform. We measure how AI engines recommend brands and help capture more share.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
   <style>
     :root {
-      --max-width: 1200px;
-      --content-width: 860px;
-      --pad-v: 3vh;
-      --pad-h: 2rem;
+      --cream: #F5F2ED;
+      --cream-d: #F0EBE3;
+      --ink: #1A1714;
+      --ink-mid: #2A2520;
+      --rust: #C8410A;
+      --muted: #7A7268;
+      --border: #D4CDC4;
 
-      /* Paul Rand inspired color palette */
-      --rand-red: #E53E3E;
-      --rand-yellow: #F6E05E;
-      --rand-blue: #3182CE;
-      --rand-green: #48BB78;
-      --rand-orange: #ED8936;
-      --rand-purple: #805AD5;
-      --rand-black: #1A202C;
-      --rand-white: #FFFFFF;
-      --rand-gray: #E2E8F0;
-
-      --text-dark: #1A202C;
-      --text-medium: #4a5568;
-      --text-light: #718096;
-      --border: #CBD5E0;
-      --bg-light: #F7FAFC;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', -apple-system, system-ui, sans-serif;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Helvetica Neue', Helvetica, sans-serif;
-      background: #fff;
-      color: var(--rand-black);
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink-mid);
       line-height: 1.6;
-      scroll-behavior: smooth;
-      position: relative;
-      overflow-x: hidden;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Geometric background elements */
-    body::before {
-      content: '';
-      position: fixed;
-      top: -120px;
-      right: -120px;
-      width: 340px;
-      height: 340px;
-      background: var(--rand-yellow);
-      border-radius: 50%;
-      opacity: 0.10;
-      z-index: -1;
-    }
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: -170px;
-      left: -170px;
-      width: 460px;
-      height: 460px;
-      background: var(--rand-blue);
-      transform: rotate(45deg);
-      opacity: 0.08;
-      z-index: -1;
-    }
-
-    a { color: inherit; }
-
-    .wrap {
-      max-width: var(--content-width);
-      margin: 0 auto;
-      padding: 0 var(--pad-h);
-    }
-
-    header { padding: var(--pad-v) 0 0; }
-
-    .topbar {
+    /* ── HEADER ────────────────────────────────────────────── */
+    .site-header {
+      padding: 32px 48px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .logo-container {
-      position: relative;
-      display: inline-block;
-    }
-    .logo-container::before {
-      content: '';
-      position: absolute;
-      top: -10px;
-      left: -20px;
-      width: 100px;
-      height: 100px;
-      background: var(--rand-red);
-      border-radius: 50%;
-      opacity: 0.15;
-      z-index: -1;
-    }
-
-    h1.logo {
-      font-size: 4rem;
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: -2px;
-      margin: 0;
-      display: inline-block;
-      position: relative;
-    }
-    h1.logo::after {
-      content: '';
-      position: absolute;
-      top: 10px;
-      right: -25px;
-      width: 20px;
-      height: 20px;
-      background: var(--rand-yellow);
-      border-radius: 50%;
-    }
-
-    .tagline {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--rand-blue);
-      display: inline-flex;
       align-items: center;
-      gap: 0.65rem;
-      margin-top: 0.35rem;
-      white-space: normal;
-    }
-    .tagline .bar {
-      display: inline-block;
-      width: 26px;
-      height: 3px;
-      background: var(--rand-red);
-      transform: translateY(1px);
-      flex: 0 0 auto;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    .top-cta {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+    .brand-mark {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
     }
 
-    .btn {
-      display: inline-block;
+    .header-link {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--muted);
       text-decoration: none;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 0.75rem 1.25rem;
-      border: 3px solid var(--rand-black);
-      background: white;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      border-radius: 0;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-    .btn:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--rand-black);
-    }
-    .btn-primary {
-      background: var(--rand-yellow);
-      border-color: var(--rand-yellow);
-      color: var(--rand-black);
-    }
-    .btn-primary:hover {
-      background: #fff;
-      box-shadow: 6px 6px 0 var(--rand-red);
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
     }
 
-    /* HERO */
-    .hero { padding: 2.25rem 0 2.5rem; }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0;
-      align-items: start;
+    .header-link:hover {
+      color: var(--rust);
     }
 
-    .hero-question { padding: 0.75rem 0 0.25rem; }
-
-    .hero-h {
-      font-size: clamp(2.05rem, 4.1vw, 3rem);
-      line-height: 1.02;
-      font-weight: 900;
-      letter-spacing: -1.5px;
-      text-transform: uppercase;
-      color: var(--rand-black);
-    }
-
-    .hero-line2 {
-      display: block;
-      white-space: nowrap;
-    }
-
-    .rotator {
-      display: inline-block;
-      position: relative;
-      vertical-align: baseline;
-      height: 1em;
-      overflow: hidden;
-      width: 16.5ch;
-      margin-left: 0.18em;
-      perspective: 900px;
-      perspective-origin: 50% 50%;
-      transform-style: preserve-3d;
-    }
-
-    .rotator-stage {
-      position: relative;
-      height: 1em;
-      transform-style: preserve-3d;
-    }
-
-    .rotator-face {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 1em;
-      line-height: 1em;
-      white-space: nowrap;
-      backface-visibility: hidden;
-      opacity: 0;
-      transform-origin: 50% 50%;
-      color: var(--rand-red);
-    }
-
-    .rotator-current {
-      opacity: 1;
-      transform: rotateX(0deg) translateZ(0);
-    }
-
-    .rotator-next {
-      opacity: 0;
-      transform: rotateX(90deg) translateZ(0);
-    }
-
-    .rotator.animating .rotator-current {
-      animation: flipOut 520ms cubic-bezier(.2,.75,.2,1) forwards;
-    }
-    .rotator.animating .rotator-next {
-      animation: flipIn 520ms cubic-bezier(.2,.75,.2,1) forwards;
-    }
-
-    @keyframes flipOut {
-      0%   { opacity: 1; transform: rotateX(0deg); }
-      55%  { opacity: 0.3; transform: rotateX(-70deg); }
-      100% { opacity: 0; transform: rotateX(-90deg); }
-    }
-
-    @keyframes flipIn {
-      0%   { opacity: 0; transform: rotateX(90deg); }
-      55%  { opacity: 0.65; transform: rotateX(20deg); }
-      100% { opacity: 1; transform: rotateX(0deg); }
-    }
-
-    .hero-sub {
-      margin-top: 1.25rem;
-      font-size: 1.08rem;
-      color: var(--text-medium);
-      line-height: 1.8;
-      max-width: 40rem;
-    }
-
-    .hero-sub strong {
-      font-weight: 800;
-      color: var(--rand-black);
-    }
-
-    .quick-links {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-      margin-top: 1.5rem;
-      width: 100%;
-      max-width: 46rem;
-    }
-
-    .pill {
-      text-decoration: none;
-      font-weight: 900;
-      font-size: 0.85rem;
-      padding: 0.55rem 1rem;
-      border: 2px solid var(--rand-black);
-      background: #fff;
-      border-radius: 25px;
-      transition: background 0.2s ease, transform 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
+    /* ── HERO ──────────────────────────────────────────────── */
+    .hero {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 48px 100px;
       text-align: center;
-      width: 100%;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--rust);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(56px, 8vw, 96px);
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 em {
+      color: var(--rust);
+      font-style: normal;
+    }
+
+    .hero-tagline {
+      font-family: var(--serif);
+      font-size: clamp(20px, 2.6vw, 26px);
+      font-style: italic;
+      color: var(--ink-mid);
+      margin: 48px auto 40px;
+      max-width: 620px;
+      line-height: 1.4;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      padding: 20px 44px;
+      background: var(--ink);
+      color: var(--cream);
+      text-decoration: none;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .cta-primary:hover {
+      background: var(--rust);
+      transform: translateY(-1px);
+    }
+
+    .cta-primary .arrow {
+      margin-left: 12px;
+      display: inline-block;
+    }
+
+    /* ── AI·subtext wordmark inline ────────────────────────── */
+    .ais-wordmark {
+      font-family: var(--serif);
+      font-weight: 400;
       display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-    .pill:hover {
-      transform: translate(-2px, -2px);
-      background: var(--rand-yellow);
+      align-items: baseline;
+      gap: 4px;
     }
 
-    /* CTA pill used in hero (replaces the three pills) */
-    .pill-cta {
-      background: var(--rand-yellow);
-      border-color: var(--rand-black);
-      color: var(--rand-black);
-    }
-    .pill-cta:hover {
-      background: #fff;
-    }
-
-    .aivi-one-minute { padding: 0 0 2.6rem; }
-
-    .aivi-cols {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-top: 1.25rem;
+    .ais-wordmark .dot {
+      display: inline-block;
+      width: 0.28em;
+      height: 0.28em;
+      background: var(--rust);
+      border-radius: 50%;
+      margin: 0 0.04em;
+      transform: translateY(-0.35em);
     }
 
-    .mini-item {
-      border: 2px solid var(--rand-black);
-      padding: 0.95rem 1rem;
-      background: rgba(246,224,94,0.10);
-    }
-    .mini-item:nth-child(2) { background: rgba(72,187,120,0.10); }
-    .mini-item:nth-child(3) { background: rgba(49,130,206,0.10); }
-
-    .mini-item strong {
-      display: block;
-      font-weight: 900;
-      margin-bottom: 0.2rem;
-      color: var(--rand-black);
-      font-size: 0.95rem;
+    /* ── WHAT IS AISUBTEXT ─────────────────────────────────── */
+    .section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 100px 48px;
     }
 
-    .mini-item span {
-      display: block;
-      color: var(--text-medium);
-      font-size: 0.9rem;
-      line-height: 1.5;
+    .section-divider {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 48px;
     }
 
-    .section { padding: 2.6rem 0; }
+    .section-divider hr {
+      border: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-family: var(--sans);
+      font-size: 11px;
+      color: var(--rust);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
 
     .section h2 {
-      font-size: 2rem;
-      font-weight: 900;
-      margin-bottom: 1.25rem;
-      color: var(--rand-black);
-      position: relative;
-      display: inline-block;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
-    }
-    .section h2::after {
-      content: '';
-      position: absolute;
-      bottom: -7px;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--rand-red) 0%, var(--rand-yellow) 50%, var(--rand-blue) 100%);
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 52px);
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 32px;
+      letter-spacing: -0.01em;
     }
 
     .section p {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: var(--text-medium);
-      margin-bottom: 1.25rem;
-      max-width: 46rem;
+      font-family: var(--sans);
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--ink-mid);
+      max-width: 680px;
+      margin-bottom: 24px;
     }
 
-    .glance {
-      background: linear-gradient(135deg, rgba(246,224,94,0.06) 0%, rgba(49,130,206,0.06) 100%);
-      border-top: 3px solid var(--rand-black);
-      border-bottom: 3px solid var(--rand-black);
-    }
-
-    .glance-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-top: 1.25rem;
-    }
-
-    .glance-card {
-      border: 2px solid var(--rand-black);
-      background: #fff;
-      padding: 1rem 1.05rem;
-      transition: transform 0.2s ease;
-    }
-    .glance-card:hover { transform: translate(-2px, -2px); }
-
-    .glance-card:nth-child(1) { box-shadow: 6px 6px 0 rgba(229,62,62,0.55); }
-    .glance-card:nth-child(2) { box-shadow: 6px 6px 0 rgba(49,130,206,0.55); }
-    .glance-card:nth-child(3) { box-shadow: 6px 6px 0 rgba(72,187,120,0.55); }
-    .glance-card:nth-child(4) { box-shadow: 6px 6px 0 rgba(246,224,94,0.85); }
-
-    .glance-card strong {
-      display: block;
-      font-weight: 900;
-      margin-bottom: 0.25rem;
-      color: var(--rand-black);
-      font-size: 1rem;
-    }
-    .glance-card span {
-      display: block;
-      color: var(--text-medium);
-      font-size: 0.92rem;
-      line-height: 1.55;
-    }
-
-    .offerings-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.4rem;
-      margin-top: 1.5rem;
-    }
-
-    .off-card {
-      background: #fff;
-      border: 2px solid var(--rand-black);
-      padding: 1.35rem 1.25rem;
-      transition: transform 0.2s ease;
-    }
-    .off-card:hover { transform: translate(-3px, -3px); }
-
-    .off-card:nth-child(1) { box-shadow: 7px 7px 0 var(--rand-red); }
-    .off-card:nth-child(2) { box-shadow: 7px 7px 0 var(--rand-blue); }
-    .off-card:nth-child(3) { box-shadow: 7px 7px 0 var(--rand-green); }
-
-    .off-card h3 {
-      font-size: 1.05rem;
-      font-weight: 900;
-      margin-bottom: 0.6rem;
-      color: var(--rand-black);
-      line-height: 1.25;
-    }
-
-    .off-card p {
-      margin: 0;
-      color: var(--text-medium);
-      font-size: 0.95rem;
-      line-height: 1.65;
-    }
-
-    .how {
-      background: var(--rand-black);
-      color: #fff;
-      border-top: 4px solid var(--rand-black);
-      border-bottom: 4px solid var(--rand-black);
-      box-shadow: 0 0 0 8px rgba(246,224,94,0.12) inset;
-    }
-
-    .how h2 { color: #fff; }
-    .how h2::after { display: none; }
-
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-top: 1.25rem;
-    }
-
-    .how-pill {
-      border: 2px solid #fff;
-      padding: 1.1rem 1rem;
-      background: rgba(255,255,255,0.04);
-    }
-
-    .how-pill .big {
-      font-weight: 900;
+    .pillars {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--rust);
+      letter-spacing: 0.4em;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--rand-yellow);
-      font-size: 1.15rem;
-      margin-bottom: 0.35rem;
-    }
-    .how-pill .small {
-      color: rgba(255,255,255,0.92);
-      font-size: 0.95rem;
-      line-height: 1.55;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
     }
 
-    .serve-grid {
+    /* ── PRODUCTS GRID ─────────────────────────────────────── */
+    .section-wide {
+      max-width: 1240px;
+    }
+
+    .products-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-top: 1.25rem;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
     }
 
-    .serve-item {
-      border: 2px solid var(--rand-black);
-      padding: 1rem 1.05rem;
-      background: #fff;
-      transition: transform 0.2s ease;
-    }
-    .serve-item:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--rand-black); }
-
-    .serve-item:nth-child(1) { background: rgba(229,62,62,0.10); }
-    .serve-item:nth-child(2) { background: rgba(49,130,206,0.10); }
-    .serve-item:nth-child(3) { background: rgba(72,187,120,0.10); }
-    .serve-item:nth-child(4) { background: rgba(246,224,94,0.10); }
-
-    .serve-item strong {
-      display: block;
-      font-weight: 900;
-      color: var(--rand-black);
-      margin-bottom: 0.25rem;
-    }
-    .serve-item span {
-      display: block;
-      color: var(--text-medium);
-      font-size: 0.92rem;
-      line-height: 1.55;
-    }
-
-    .cta {
-      background: linear-gradient(135deg, var(--rand-blue) 0%, var(--rand-purple) 100%);
-      color: #fff;
-      border-top: 4px solid var(--rand-black);
-      border-bottom: 4px solid var(--rand-black);
-      padding: 3rem 0;
-    }
-
-    .cta h2 { color: #fff; }
-    .cta h2::after { display: none; }
-
-    .cta p { color: rgba(255,255,255,0.95); max-width: 48rem; }
-
-    .cta-buttons {
+    .product-card {
+      background: var(--cream-d);
+      border: 1px solid var(--border);
+      padding: 40px 36px;
       display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-top: 1.25rem;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
     }
 
-    .btn-cta {
+    .product-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--rust);
+    }
+
+    .card-eyebrow {
+      font-family: var(--sans);
+      font-size: 11px;
+      color: var(--rust);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-family: var(--serif);
+      font-size: 40px;
+      color: var(--ink);
+      margin-bottom: 8px;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+
+    .card-subhead {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--ink-mid);
+      margin-bottom: 24px;
+    }
+
+    .card-body {
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--ink-mid);
+      margin-bottom: 28px;
+      flex: 1;
+    }
+
+    .card-pillars {
+      font-family: var(--sans);
+      font-size: 11px;
+      color: var(--rust);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .card-link {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .card-link:hover {
+      color: var(--rust);
+    }
+
+    .card-link-muted {
+      color: var(--muted);
+    }
+
+    /* Small AI·subtext wordmark used inside the card title */
+    .ais-wordmark-sm {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 2px;
+    }
+
+    .dot-sm {
       display: inline-block;
-      text-decoration: none;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 0.85rem 1.5rem;
-      border: 3px solid var(--rand-yellow);
-      background: var(--rand-yellow);
-      color: var(--rand-black);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      border-radius: 0;
-    }
-    .btn-cta:hover {
-      background: #fff;
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--rand-red);
+      width: 0.24em;
+      height: 0.24em;
+      background: var(--rust);
+      border-radius: 50%;
+      margin: 0 0.03em;
+      transform: translateY(-0.35em);
     }
 
-    .btn-cta-outline {
-      border-color: #fff;
-      background: transparent;
-      color: #fff;
-    }
-    .btn-cta-outline:hover {
-      background: #fff;
-      color: var(--rand-blue);
-      box-shadow: 6px 6px 0 var(--rand-black);
+    /* ── STATS GRID ────────────────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      margin-top: 48px;
     }
 
-    /* Back to top button — FIXED + aligned to right edge of main column + vertically centered */
-    .back-to-top {
-      position: fixed;
-      top: 50%;
-      right: max(
-        20px,
-        calc((100vw - (var(--content-width) + (2 * var(--pad-h)))) / 2 + var(--pad-h))
-      );
-      width: 60px;
-      height: 60px;
-      background: var(--rand-red);
-      color: #fff;
-      border: 3px solid var(--rand-black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      text-decoration: none;
-      box-shadow: 5px 5px 0 var(--rand-black);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 1000;
-      font-weight: 900;
-      transform: translateY(-50%) rotate(45deg);
-    }
-    .back-to-top span { transform: rotate(-45deg); }
-    .back-to-top.show { opacity: 1; visibility: visible; }
-    .back-to-top:hover {
-      background: var(--rand-yellow);
-      color: var(--rand-black);
-      transform: translateY(calc(-50% - 3px)) rotate(45deg) translate(-3px, -3px);
-      box-shadow: 8px 8px 0 var(--rand-black);
+    .stat {
+      padding-top: 24px;
+      border-top: 2px solid var(--ink);
     }
 
-    footer {
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 56px;
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-family: var(--sans);
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    /* ── FINAL CTA ─────────────────────────────────────────── */
+    .final-cta {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 100px 48px;
       text-align: center;
-      padding: 2rem var(--pad-h);
-      border-top: 4px solid var(--rand-black);
-      background: linear-gradient(90deg, rgba(246,224,94,0.1) 0%, rgba(49,130,206,0.1) 100%);
     }
-    .footer-content {
-      max-width: var(--max-width);
+
+    .final-cta h2 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 56px);
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .final-cta h2 em {
+      color: var(--rust);
+      font-style: italic;
+    }
+
+    .final-cta p {
+      font-family: var(--sans);
+      font-size: 16px;
+      color: rgba(245, 242, 237, 0.7);
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+
+    .cta-cream {
+      display: inline-block;
+      padding: 20px 44px;
+      background: var(--rust);
+      color: var(--cream);
+      text-decoration: none;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .cta-cream:hover {
+      background: #A03509;
+    }
+
+    /* ── FOOTER ────────────────────────────────────────────── */
+    footer {
+      background: var(--cream);
+      padding: 40px 48px;
+      max-width: 1200px;
       margin: 0 auto;
-      color: var(--text-medium);
-      font-size: 0.82rem;
-      font-weight: 700;
-    }
-    .footer-content p { margin: 0.15rem 0; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .rotator.animating .rotator-current,
-      .rotator.animating .rotator-next { animation: none !important; }
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
     }
 
-    @media (max-width: 980px) {
-      .topbar { align-items: flex-start; }
-      .offerings-grid { grid-template-columns: 1fr; }
-      .how-grid { grid-template-columns: 1fr; }
-      .glance-grid { grid-template-columns: 1fr; }
-      .serve-grid { grid-template-columns: 1fr; }
-      .aivi-cols { grid-template-columns: 1fr; }
-      .hero-line2 { white-space: nowrap; }
-      .rotator { width: 16.7ch; }
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 24px;
     }
 
-    @media (max-width: 520px) {
-      h1.logo { font-size: 3rem; }
-      .btn { width: 100%; text-align: center; }
-      .cta-buttons { flex-direction: column; }
-      .btn-cta { width: 100%; text-align: center; }
-      .hero-line2 { white-space: nowrap; }
+    footer a:hover { color: var(--rust); }
+
+    /* ── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 1000px) {
+      .products-grid { grid-template-columns: 1fr; gap: 20px; }
+    }
+
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    }
+
+    @media (max-width: 720px) {
+      .site-header, .section, footer { padding: 24px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+      footer a { margin: 0 12px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-num { font-size: 44px; }
     }
   </style>
 </head>
+<body>
 
-<body id="top">
-  <div class="wrap">
-    <header>
-      <div class="topbar">
-        <div>
-          <div class="logo-container">
-            <h1 class="logo">Quontora</h1>
-          </div>
-          <div class="tagline" aria-label="Tagline">
-            <span class="bar" aria-hidden="true"></span>
-            <span>The company behind AI Subtext</span>
-          </div>
-        </div>
+<header class="site-header">
+  <div class="brand-mark">Quontora</div>
+  <a href="https://aisubtext.ai" class="header-link">aisubtext.ai →</a>
+</header>
 
-        <!-- Top CTA removed per request -->
-        <nav class="top-cta" aria-label="Primary actions"></nav>
-      </div>
-    </header>
-
-    <main>
-      <section class="hero" aria-label="Hero">
-        <div class="hero-grid">
-          <div class="hero-question">
-            <h2 class="hero-h" aria-label="Hero headline">
-              DOES AI DESCRIBE YOUR
-              <span class="hero-line2">
-                BRAND AS
-                <span class="rotator" id="rotator" aria-label="Rotating descriptor">
-                  <span class="rotator-stage">
-                    <span class="rotator-face rotator-current" id="rotCurrent">generic?</span>
-                    <span class="rotator-face rotator-next" id="rotNext"></span>
-                  </span>
-                </span>
-              </span>
-            </h2>
-
-            <p class="hero-sub">
-              <strong>Quontora builds AI Subtext</strong> — a report that shows how AI systems interpret and summarize your website.
-              Use it to see what’s working, where understanding breaks down, and what to change so AI presents your brand with clarity and credibility.
-            </p>
-
-            <!-- Pills removed; AI Subtext CTA placed here -->
-            <div class="quick-links" aria-label="Primary hero action">
-              <a class="pill pill-cta" href="https://aisubtext.ai">Open AI Subtext</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="aivi-one-minute" aria-label="AI Subtext in one minute content">
-        <div class="aivi-cols">
-          <div class="mini-item">
-            <strong>What it checks</strong>
-            <span>Interpretability, trust signals, and content clarity (not rankings).</span>
-          </div>
-          <div class="mini-item">
-            <strong>What you get</strong>
-            <span>A clear summary, prioritized issues, and implementation-ready guidance.</span>
-          </div>
-          <div class="mini-item">
-            <strong>Who it’s for</strong>
-            <span>Brands, startups, agencies, and mission-driven teams.</span>
-          </div>
-        </div>
-      </section>
-    </main>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">The company behind</div>
+  <h1>
+    <span class="ais-wordmark">
+      AI<span class="dot"></span>subtext
+    </span>
+  </h1>
+  <div class="hero-tagline">
+    "AI doesn't just answer questions.<br>It creates <em style="color:var(--rust);font-style:italic;">subtext.</em>"
   </div>
+  <a href="https://aisubtext.ai" class="cta-primary">
+    See the platform<span class="arrow">→</span>
+  </a>
+</section>
 
-  <section id="glance" class="section glance" aria-label="Quontora at a Glance">
-    <div class="wrap">
-      <h2>Quontora at a Glance</h2>
-      <p>
-        Quontora is an umbrella company focused on AI visibility. Our core product is <strong>AI Subtext</strong> — and we
-        support teams who want to move from “interesting findings” to “measurable improvement” with practical guidance and implementation support.
+<div class="section-divider"><hr></div>
+
+<!-- PRODUCTS -->
+<section class="section section-wide">
+  <div class="section-label">The Products</div>
+  <h2>Three intelligence platforms.<br>One infrastructure.</h2>
+
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="card-eyebrow">Commercial brand intelligence</div>
+      <h3 class="card-title"><span class="ais-wordmark-sm">AI<span class="dot-sm"></span>subtext</span></h3>
+      <div class="card-subhead">Recommendation Share Intelligence</div>
+      <p class="card-body">
+        How AI engines recommend brands to buyers across ChatGPT, Claude, Gemini, and Perplexity. Measure the gap. Deploy remediation. Trace every citation back to its source.
       </p>
-
-      <div class="glance-grid">
-        <div class="glance-card">
-          <strong>📊 AI Subtext Report</strong>
-          <span>See how AI reads and summarizes your site.</span>
-        </div>
-        <div class="glance-card">
-          <strong>🧭 Prioritization</strong>
-          <span>Turn findings into a short list of high-leverage actions.</span>
-        </div>
-        <div class="glance-card">
-          <strong>🧱 Implementation Support</strong>
-          <span>Fix structure, schema, internal linking, and clarity signals.</span>
-        </div>
-        <div class="glance-card">
-          <strong>🎓 Enablement</strong>
-          <span>Training for teams and agencies delivering AI visibility work.</span>
-        </div>
-      </div>
+      <div class="card-pillars">MEASURE &nbsp;·&nbsp; DIAGNOSE &nbsp;·&nbsp; CAPTURE &nbsp;·&nbsp; TRACK</div>
+      <a href="https://aisubtext.ai" class="card-link">Live in production &nbsp;→</a>
     </div>
-  </section>
 
-  <div class="wrap">
-    <section id="offerings" class="section" aria-label="Offerings">
-      <h2>Offerings</h2>
-      <p>
-        Start with AI Subtext to establish a baseline. Then choose the level of support you need — from a quick prioritization session
-        to hands-on implementation and team enablement.
+    <div class="product-card">
+      <div class="card-eyebrow">Political intelligence</div>
+      <h3 class="card-title">NarrativeIQ</h3>
+      <div class="card-subhead">How AI Describes Candidates</div>
+      <p class="card-body">
+        How AI engines describe, rank, hedge about, and source-cite candidates running for office. 500 data points per audit, with source provenance mapping, claim ledger, salience index, and hedge detection.
       </p>
+      <div class="card-pillars">SOURCE &nbsp;·&nbsp; CLAIM &nbsp;·&nbsp; SALIENCE &nbsp;·&nbsp; HEDGE</div>
+      <a href="mailto:hello@quontora.com?subject=NarrativeIQ" class="card-link">Contact us about NarrativeIQ &nbsp;→</a>
+    </div>
 
-      <div class="offerings-grid">
-        <div class="off-card">
-          <h3>📊 AI Subtext Report Access</h3>
-          <p>Run a URL and get a full report on clarity, trust signals, crawlability, and content alignment — plus concrete next steps.</p>
-        </div>
-
-        <div class="off-card">
-          <h3>🧭 Report Review &amp; Prioritization</h3>
-          <p>A guided walkthrough of your report, translated into a clean, executable plan your team can implement quickly.</p>
-        </div>
-
-        <div class="off-card">
-          <h3>🧱 Implementation Support</h3>
-          <p>Hands-on help improving technical signals (schema, internal linking, accessibility) and content signals (entities, clarity, intent).</p>
-        </div>
-      </div>
-    </section>
+    <div class="product-card">
+      <div class="card-eyebrow">Reputation intelligence</div>
+      <h3 class="card-title">ReputationIQ</h3>
+      <div class="card-subhead">How AI Describes Reputations</div>
+      <p class="card-body">
+        How AI engines represent corporate and executive reputations over time. Baseline sentiment tracking, week-over-week drift detection, crisis signal identification, and post-response verification.
+      </p>
+      <div class="card-pillars">SENTIMENT &nbsp;·&nbsp; DRIFT &nbsp;·&nbsp; CRISIS &nbsp;·&nbsp; REBOUND</div>
+      <a href="mailto:hello@quontora.com?subject=ReputationIQ" class="card-link card-link-muted">Get notified · Q1 2027 &nbsp;→</a>
+    </div>
   </div>
+</section>
 
-  <section id="how" class="section how" aria-label="How we work">
-    <div class="wrap">
-      <h2>How We Work</h2>
-      <p style="color: rgba(255,255,255,0.92); max-width: 50rem;">
-        We’re diagnostic-led and execution-focused. AI Subtext helps align on what’s clear, what’s missing, and what matters most — before any rewrite or rebuild.
-      </p>
+<div class="section-divider"><hr></div>
 
-      <div class="how-grid">
-        <div class="how-pill">
-          <div class="big">Diagnostic-Led</div>
-          <div class="small">Measure first, guess less.</div>
-        </div>
-        <div class="how-pill">
-          <div class="big">Actionable</div>
-          <div class="small">Priorities your team can execute.</div>
-        </div>
-        <div class="how-pill">
-          <div class="big">Honest</div>
-          <div class="small">No hype. No overpromises. Clear tradeoffs.</div>
-        </div>
-      </div>
+<!-- BY THE NUMBERS -->
+<section class="section">
+  <div class="section-label">By the numbers</div>
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-num">2,322</div>
+      <div class="stat-label">Brands indexed<br>in production</div>
     </div>
-  </section>
-
-  <div class="wrap">
-    <section class="section" aria-label="Who we serve">
-      <h2>Who We Serve</h2>
-      <p>AI Subtext is built for teams who want AI to describe them accurately — with clarity, credibility, and consistency.</p>
-
-      <div class="serve-grid">
-        <div class="serve-item">
-          <strong>💼 Brands &amp; Businesses</strong>
-          <span>Improve how AI explains what you do and why it matters.</span>
-        </div>
-        <div class="serve-item">
-          <strong>🧑‍💼 Agencies &amp; Consultants</strong>
-          <span>Offer AI visibility as a measurable, report-driven service.</span>
-        </div>
-        <div class="serve-item">
-          <strong>🚀 Startups</strong>
-          <span>Build durable trust signals and clear positioning early.</span>
-        </div>
-        <div class="serve-item">
-          <strong>💚 Mission-Driven Orgs</strong>
-          <span>Clarify narrative and credibility with lean teams.</span>
-        </div>
-      </div>
-    </section>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">AI engines<br>continuously monitored</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Intelligence platforms<br>from one infrastructure</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">Live</div>
+      <div class="stat-label">Public AI Brand Index<br>at aisubtext.ai/TheIndex</div>
+    </div>
   </div>
+</section>
 
-  <section id="contact" class="cta" aria-label="Get started">
-    <div class="wrap">
-      <h2>Get Started</h2>
-      <p>Run AI Subtext or book a short walkthrough. We’ll turn findings into a clean, executable plan.</p>
+<div class="section-divider"><hr></div>
 
-      <div class="cta-buttons">
-        <a class="btn-cta" href="https://aisubtext.ai">Open AI Subtext</a>
-        <a class="btn-cta btn-cta-outline" href="https://calendly.com/quontora">Schedule a Walkthrough</a>
-        <a class="btn-cta btn-cta-outline" href="mailto:hello@quontora.com">Email Us</a>
-      </div>
-    </div>
-  </section>
+<!-- WHY WE BUILD -->
+<section class="section">
+  <div class="section-label">Why we build</div>
+  <h2>The new discovery layer already exists.<br>Most brands can't see it.</h2>
+  <p>
+    Google indexes ten blue links. AI answers with two to four options. When a brand isn't in the answer, the visit doesn't happen. The traffic doesn't arrive. The pipeline shrinks.
+  </p>
+  <p>
+    Quontora builds measurement, remediation, and attribution infrastructure for brands competing in that new layer. Not another dashboard. A closed-loop system that measures Recommendation Share, diagnoses the gap, deploys remediation, and traces every citation back to its source.
+  </p>
+  <div class="pillars">
+    MEASURE &nbsp;·&nbsp; REMEDIATE &nbsp;·&nbsp; ATTRIBUTE
+  </div>
+</section>
 
-  <!-- Back to Top Button -->
-  <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top"><span>↑</span></a>
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>See how AI engines recommend<br>your <em>brand.</em></h2>
+  <p>
+    Run a free AI Recommendation Audit in 90 seconds. Score your Recommendation Share across the four AI engines your buyers actually use.
+  </p>
+  <a href="https://aisubtext.ai/audit" class="cta-cream">
+    Run Free Audit →
+  </a>
+</section>
 
-  <footer>
-    <div class="footer-content">
-      <p>&copy; 2025 Quontora. All rights reserved. Last updated <span id="update-date"></span>.</p>
-      <p>The company behind “AI Subtext”</p>
-    </div>
-  </footer>
+<!-- FOOTER -->
+<footer>
+  <div>© 2026 Quontora. Brooklyn, NY.</div>
+  <div>
+    <a href="mailto:hello@quontora.com">hello@quontora.com</a>
+    <a href="https://aisubtext.ai">aisubtext.ai</a>
+  </div>
+</footer>
 
-  <script>
-    // Footer date
-    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    const now = new Date();
-    document.getElementById('update-date').textContent = `${months[now.getMonth()]} ${now.getFullYear()}`;
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (!href || href === '#') return;
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-
-    // Show/hide back to top button
-    const backToTopButton = document.getElementById('backToTop');
-    window.addEventListener('scroll', function() {
-      if (window.pageYOffset > 300) backToTopButton.classList.add('show');
-      else backToTopButton.classList.remove('show');
-    });
-
-    // Rotator
-    (function(){
-      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      const words = [
-        'generic?',
-        'unclear?',
-        'confusing?',
-        'replaceable?',
-        'credible?',
-        'trustworthy?',
-        'authoritative?',
-        'distinct?'
-      ];
-
-      const rotator = document.getElementById('rotator');
-      const cur = document.getElementById('rotCurrent');
-      const next = document.getElementById('rotNext');
-
-      if (!rotator || !cur || !next) return;
-
-      let i = 0;
-      cur.textContent = words[i];
-      next.textContent = '';
-
-      if (prefersReduced) return;
-
-      let isAnimating = false;
-
-      function step(){
-        if (isAnimating) return;
-        isAnimating = true;
-
-        const nextIndex = (i + 1) % words.length;
-        next.textContent = words[nextIndex];
-
-        rotator.classList.add('animating');
-
-        const onDone = () => {
-          rotator.classList.remove('animating');
-          i = nextIndex;
-          cur.textContent = words[i];
-          next.textContent = '';
-          isAnimating = false;
-          rotator.removeEventListener('animationend', onAnyEnd, true);
-        };
-
-        const onAnyEnd = (e) => {
-          if (e.target === next) onDone();
-        };
-
-        rotator.addEventListener('animationend', onAnyEnd, true);
-      }
-
-      setInterval(step, 2100);
-    })();
-  </script>
-
-  <!-- Version footer: v2026.01.22-3 -->
 </body>
 </html>
